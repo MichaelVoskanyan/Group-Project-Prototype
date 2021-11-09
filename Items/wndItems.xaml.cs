@@ -12,11 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CS3280_Group_Project.Items {
+namespace CS3280_Group_Project {
 	/// <summary>
 	/// Interaction logic for wndItems.xaml
 	/// </summary>
 	public partial class wndItems : Window {
+
+		public MainWindow mainWindow;
+
+
 		public wndItems () {
 			InitializeComponent ();
 		}
