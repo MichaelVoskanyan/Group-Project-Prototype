@@ -18,11 +18,19 @@ namespace CS3280_Group_Project {
 	/// </summary>
 	public partial class wndItems : Window {
 
-		public MainWindow mainWindow;
-
+		public MainWindow MainWindow;
 
 		public wndItems () {
 			InitializeComponent ();
+			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 		}
-	}
+
+		private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+			this.Hide();
+			MainWindow = new MainWindow();
+			MainWindow.ShowDialog();
+
+		}
+    }
 }

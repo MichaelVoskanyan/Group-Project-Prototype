@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="wndSearch" Height="450" Width="800">
     <Grid>
-        
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="110,313,0,0" VerticalAlignment="Top" Width="133" Height="47" Click="btnCancel_Click"/>
+        <Button x:Name="btnSelect" Content="Select Order" HorizontalAlignment="Left" Margin="464,313,0,0" VerticalAlignment="Top" Width="138" Height="47" Click="btnSelect_Click"/>
+
     </Grid>
 </Window>

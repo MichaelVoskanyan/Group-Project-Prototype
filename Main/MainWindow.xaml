@@ -8,11 +8,11 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="0,0,2,0">
         <Menu  HorizontalAlignment="Left" VerticalAlignment="Top">
-            <MenuItem Header="_File" FontSize="15" >
-                <MenuItem Header="_Search Orders" />
-                <MenuItem Header="Items" />
+            <MenuItem Header="_File" FontSize="15">
+                <MenuItem Header="_Search Orders" Click="MenuItem_Click" />
+                <MenuItem Header="Items" Click="MenuItem_Click_1"/>
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" Click="MenuItem_Click_2"/>
             </MenuItem>
         </Menu>
         <DataGrid HorizontalAlignment="Left" Height="318" Margin="392,59,0,0" VerticalAlignment="Top" Width="373"/>
