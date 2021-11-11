@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS3280_Group_Project.Main {
+namespace CS3280_Group_Project {
 	class clsMainSQL {
 
         /// <summary>

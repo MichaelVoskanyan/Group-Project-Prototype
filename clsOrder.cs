@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CS3280_Group_Project
 {
-    class clsOrder
+    public class clsOrder
     {
         /// <summary>
         /// private order ID
@@ -26,7 +26,7 @@ namespace CS3280_Group_Project
         /// <summary>
         /// private list of items ordered
         /// </summary>
-        private List<clsItem> items;
+       /// private List<clsItem> items;
 
         /// <summary>
         /// public order ID with get and set
@@ -41,11 +41,18 @@ namespace CS3280_Group_Project
         /// <summary>
         /// public order total with get and set
         /// </summary>
-        public decimal OrderTotal { get => orderTotal ; set => orderTotal = value; }
+        public decimal OrderTotal { get => orderTotal; set => orderTotal = value; }
 
         /// <summary>
         /// public list of items ordered with get and set
         /// </summary>
-        public List<clsItem> Items { get => items; set => items = value; }
+       /// public List<clsItem> Items { get => items; set => items = value; }
+
+        public clsOrder(int ID, DateTime orDate, decimal Total)
+        {
+            orderID = ID;
+            orderdate = orDate;
+            orderTotal = Total;
+        }
     }
 }

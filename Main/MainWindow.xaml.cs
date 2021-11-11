@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -37,6 +39,7 @@ namespace CS3280_Group_Project
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            loadOrders();
         }
 
         /// <summary>
@@ -48,6 +51,15 @@ namespace CS3280_Group_Project
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             lblOrderNumber.Content = OrderID.ToString();
+            loadOrders();
+        }
+
+        public  void loadOrders()
+        {
+            List<clsOrder> orderlist = clsMainLogic.GetOrders();
+            var bindingList = new BindingList<clsOrder>(orderlist);
+            var source = new BindingSource(bindingList, null);
+            orderGrid.ItemsSource = source;
         }
 
         /// <summary>

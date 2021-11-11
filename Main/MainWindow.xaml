@@ -15,7 +15,7 @@
                 <MenuItem Header="_Exit" Click="MenuItem_Click_2"/>
             </MenuItem>
         </Menu>
-        <DataGrid HorizontalAlignment="Left" Height="318" Margin="392,59,0,0" VerticalAlignment="Top" Width="373"/>
+        <DataGrid x:Name="orderGrid" HorizontalAlignment="Left" Height="318" Margin="392,59,0,0" VerticalAlignment="Top" Width="373"/>
         <DatePicker HorizontalAlignment="Left" Margin="154,85,0,0" VerticalAlignment="Top" Width="209"/>
         <Label x:Name="lblOrderDate" Content="Order Date:" HorizontalAlignment="Left" Margin="44,83,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Right"/>
         <Button x:Name="btnEdit" Content="&lt;-- Edit Order" HorizontalAlignment="Left" Margin="430,19,0,0" VerticalAlignment="Top" Width="101"/>
