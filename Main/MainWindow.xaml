@@ -19,13 +19,13 @@
         <DatePicker HorizontalAlignment="Left" Margin="154,85,0,0" VerticalAlignment="Top" Width="209"/>
         <Label x:Name="lblOrderDate" Content="Order Date:" HorizontalAlignment="Left" Margin="44,83,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Right"/>
         <Button x:Name="btnEdit" Content="&lt;-- Edit Order" HorizontalAlignment="Left" Margin="430,19,0,0" VerticalAlignment="Top" Width="101"/>
-        <Button x:Name="btn_submit" Content="Submit" HorizontalAlignment="Left" Margin="243,342,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid HorizontalAlignment="Left" Height="158" Margin="44,164,0,0" VerticalAlignment="Top" Width="319"/>
+        <Button x:Name="btn_submit" Content="Submit" HorizontalAlignment="Left" Margin="244,362,0,0" VerticalAlignment="Top" Width="75"/>
+        <DataGrid HorizontalAlignment="Left" Height="158" Margin="44,189,0,0" VerticalAlignment="Top" Width="319"/>
         <ComboBox HorizontalAlignment="Left" Margin="107,128,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="277,130,0,0" VerticalAlignment="Top" Width="86"/>
+        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="277,128,0,0" VerticalAlignment="Top" Width="86"/>
         <Label x:Name="lblOrderNumLabel" Content="Order Number: " HorizontalAlignment="Left" Margin="96,34,0,0" VerticalAlignment="Top" Width="90"/>
         <Label x:Name="lblOrderNumber" Content="TBD" HorizontalAlignment="Left" Margin="221,34,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="96,342,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.496,3.438"/>
+        <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="96,362,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.496,3.438"/>
         <Label x:Name="lblItem" Content="Item:" Margin="44,124,0,0" VerticalAlignment="Top" Width="42" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
         <Button x:Name="btnDelete" Content="Delete Order" HorizontalAlignment="Left" Margin="594,19,0,0" VerticalAlignment="Top" Width="99"/>
     </Grid>

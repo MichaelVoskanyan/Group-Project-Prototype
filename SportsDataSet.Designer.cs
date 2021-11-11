@@ -367,6 +367,8 @@ namespace CS3280_Group_Project {
             
             private global::System.Data.DataColumn columnItem;
             
+            private global::System.Data.DataColumn columnPrice;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public ItemsDataTable() {
@@ -418,6 +420,14 @@ namespace CS3280_Group_Project {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PriceColumn {
+                get {
+                    return this.columnPrice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -453,11 +463,12 @@ namespace CS3280_Group_Project {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ItemsRow AddItemsRow(string Item) {
+            public ItemsRow AddItemsRow(string Item, decimal Price) {
                 ItemsRow rowItemsRow = ((ItemsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        Item};
+                        Item,
+                        Price};
                 rowItemsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowItemsRow);
                 return rowItemsRow;
@@ -489,6 +500,7 @@ namespace CS3280_Group_Project {
             internal void InitVars() {
                 this.columnItem_ID = base.Columns["Item_ID"];
                 this.columnItem = base.Columns["Item"];
+                this.columnPrice = base.Columns["Price"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -502,6 +514,8 @@ namespace CS3280_Group_Project {
                 this.columnItem.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "columnItem");
                 this.columnItem.ExtendedProperties.Add("Generator_UserColumnName", "Item");
                 base.Columns.Add(this.columnItem);
+                this.columnPrice = new global::System.Data.DataColumn("Price", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrice);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnItem_ID}, true));
                 this.columnItem_ID.AutoIncrement = true;
@@ -647,8 +661,6 @@ namespace CS3280_Group_Project {
             
             private global::System.Data.DataColumn columnItem_ID;
             
-            private global::System.Data.DataColumn columnQuantity;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public Order_ItemsDataTable() {
@@ -700,14 +712,6 @@ namespace CS3280_Group_Project {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn QuantityColumn {
-                get {
-                    return this.columnQuantity;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -743,12 +747,11 @@ namespace CS3280_Group_Project {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public Order_ItemsRow AddOrder_ItemsRow(OrdersRow parentOrdersRowByFlightFlight_Passenger_Link, ItemsRow parentItemsRowByPassengerFlight_Passenger_Link, int Quantity) {
+            public Order_ItemsRow AddOrder_ItemsRow(OrdersRow parentOrdersRowByFlightFlight_Passenger_Link, ItemsRow parentItemsRowByPassengerFlight_Passenger_Link) {
                 Order_ItemsRow rowOrder_ItemsRow = ((Order_ItemsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        null,
-                        Quantity};
+                        null};
                 if ((parentOrdersRowByFlightFlight_Passenger_Link != null)) {
                     columnValuesArray[0] = parentOrdersRowByFlightFlight_Passenger_Link[0];
                 }
@@ -787,7 +790,6 @@ namespace CS3280_Group_Project {
             internal void InitVars() {
                 this.columnOrder_ID = base.Columns["Order_ID"];
                 this.columnItem_ID = base.Columns["Item_ID"];
-                this.columnQuantity = base.Columns["Quantity"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -797,8 +799,6 @@ namespace CS3280_Group_Project {
                 base.Columns.Add(this.columnOrder_ID);
                 this.columnItem_ID = new global::System.Data.DataColumn("Item_ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnItem_ID);
-                this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnQuantity);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnOrder_ID,
                                 this.columnItem_ID}, true));
@@ -1248,6 +1248,22 @@ namespace CS3280_Group_Project {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal Price {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableItems.PriceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Price\' in table \'Items\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableItems.PriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsItemNull() {
                 return this.IsNull(this.tableItems.ItemColumn);
             }
@@ -1256,6 +1272,18 @@ namespace CS3280_Group_Project {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetItemNull() {
                 this[this.tableItems.ItemColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPriceNull() {
+                return this.IsNull(this.tableItems.PriceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPriceNull() {
+                this[this.tableItems.PriceColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1308,22 +1336,6 @@ namespace CS3280_Group_Project {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Quantity {
-                get {
-                    try {
-                        return ((int)(this[this.tableOrder_Items.QuantityColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Quantity\' in table \'Order_Items\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableOrder_Items.QuantityColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public OrdersRow OrdersRow {
                 get {
                     return ((OrdersRow)(this.GetParentRow(this.Table.ParentRelations["FlightFlight_Passenger_Link"])));
@@ -1342,18 +1354,6 @@ namespace CS3280_Group_Project {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["PassengerFlight_Passenger_Link"]);
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsQuantityNull() {
-                return this.IsNull(this.tableOrder_Items.QuantityColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetQuantityNull() {
-                this[this.tableOrder_Items.QuantityColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1651,29 +1651,37 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
             tableMapping.DataSetTable = "Items";
             tableMapping.ColumnMappings.Add("Item_ID", "Item_ID");
             tableMapping.ColumnMappings.Add("Item", "Item");
+            tableMapping.ColumnMappings.Add("Price", "Price");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM `Items` WHERE ((`Item_ID` = ?) AND ((? = 1 AND `Item` IS NULL) OR (`I" +
-                "tem` = ?)))";
+                "tem` = ?)) AND ((? = 1 AND `Price` IS NULL) OR (`Price` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Item_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item_ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Item", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Item", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Price", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Price", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `Items` (`Item`) VALUES (?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `Items` (`Item`, `Price`) VALUES (?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Item", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Price", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `Items` SET `Item` = ? WHERE ((`Item_ID` = ?) AND ((? = 1 AND `Item` IS NU" +
-                "LL) OR (`Item` = ?)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `Items` SET `Item` = ?, `Price` = ? WHERE ((`Item_ID` = ?) AND ((? = 1 AND" +
+                " `Item` IS NULL) OR (`Item` = ?)) AND ((? = 1 AND `Price` IS NULL) OR (`Price` =" +
+                " ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Item", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Price", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Item_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item_ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Item", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Item", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Price", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Price", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1689,7 +1697,7 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Item_ID, Item FROM Items";
+            this._commandCollection[0].CommandText = "SELECT Item_ID, Item, Price FROM Items";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1750,7 +1758,7 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Item_ID, string Original_Item) {
+        public virtual int Delete(int Original_Item_ID, string Original_Item, global::System.Nullable<decimal> Original_Price) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Item_ID));
             if ((Original_Item == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -1759,6 +1767,14 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Item));
+            }
+            if ((Original_Price.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_Price.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1780,12 +1796,18 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Item) {
+        public virtual int Insert(string Item, global::System.Nullable<decimal> Price) {
             if ((Item == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Item));
+            }
+            if ((Price.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(Price.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1807,21 +1829,35 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Item, int Original_Item_ID, string Original_Item) {
+        public virtual int Update(string Item, global::System.Nullable<decimal> Price, int Original_Item_ID, string Original_Item, global::System.Nullable<decimal> Original_Price) {
             if ((Item == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Item));
             }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_Item_ID));
-            if ((Original_Item == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            if ((Price.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(Price.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_Item));
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_Item_ID));
+            if ((Original_Item == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_Item));
+            }
+            if ((Original_Price.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(Original_Price.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1963,37 +1999,28 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
             tableMapping.DataSetTable = "Order_Items";
             tableMapping.ColumnMappings.Add("Order_ID", "Order_ID");
             tableMapping.ColumnMappings.Add("Item_ID", "Item_ID");
-            tableMapping.ColumnMappings.Add("Quantity", "Quantity");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `Order_Items` WHERE ((`Order_ID` = ?) AND (`Item_ID` = ?) AND ((? = 1" +
-                " AND `Quantity` IS NULL) OR (`Quantity` = ?)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM `Order_Items` WHERE ((`Order_ID` = ?) AND (`Item_ID` = ?))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Order_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Order_ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Item_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item_ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Quantity", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Quantity", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Quantity", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Quantity", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `Order_Items` (`Order_ID`, `Item_ID`, `Quantity`) VALUES (?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `Order_Items` (`Order_ID`, `Item_ID`) VALUES (?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Order_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Order_ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Item_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item_ID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Quantity", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Quantity", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `Order_Items` SET `Order_ID` = ?, `Item_ID` = ?, `Quantity` = ? WHERE ((`O" +
-                "rder_ID` = ?) AND (`Item_ID` = ?) AND ((? = 1 AND `Quantity` IS NULL) OR (`Quant" +
-                "ity` = ?)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `Order_Items` SET `Order_ID` = ?, `Item_ID` = ? WHERE ((`Order_ID` = ?) AN" +
+                "D (`Item_ID` = ?))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Order_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Order_ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Item_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item_ID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Quantity", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Quantity", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Order_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Order_ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Item_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item_ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Quantity", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Quantity", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Quantity", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Quantity", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2009,7 +2036,7 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Order_ID, Item_ID, Quantity FROM Order_Items";
+            this._commandCollection[0].CommandText = "SELECT Order_ID, Item_ID FROM Order_Items";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2070,17 +2097,9 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Order_ID, int Original_Item_ID, global::System.Nullable<int> Original_Quantity) {
+        public virtual int Delete(int Original_Order_ID, int Original_Item_ID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Order_ID));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_Item_ID));
-            if ((Original_Quantity.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_Quantity.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2101,15 +2120,9 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Order_ID, int Item_ID, global::System.Nullable<int> Quantity) {
+        public virtual int Insert(int Order_ID, int Item_ID) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Order_ID));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Item_ID));
-            if ((Quantity.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(Quantity.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2130,25 +2143,11 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Order_ID, int Item_ID, global::System.Nullable<int> Quantity, int Original_Order_ID, int Original_Item_ID, global::System.Nullable<int> Original_Quantity) {
+        public virtual int Update(int Order_ID, int Item_ID, int Original_Order_ID, int Original_Item_ID) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Order_ID));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Item_ID));
-            if ((Quantity.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Quantity.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_Order_ID));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Item_ID));
-            if ((Original_Quantity.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Quantity.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_Order_ID));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_Item_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2169,8 +2168,8 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> Quantity, int Original_Order_ID, int Original_Item_ID, global::System.Nullable<int> Original_Quantity) {
-            return this.Update(Original_Order_ID, Original_Item_ID, Quantity, Original_Order_ID, Original_Item_ID, Original_Quantity);
+        public virtual int Update(int Original_Order_ID, int Original_Item_ID) {
+            return this.Update(Original_Order_ID, Original_Item_ID, Original_Order_ID, Original_Item_ID);
         }
     }
     
