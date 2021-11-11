@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CS3280_Group_Project
 {
-    class clsItem
+   public  class clsItem
     {
         /// <summary>
         /// private item ID variable
