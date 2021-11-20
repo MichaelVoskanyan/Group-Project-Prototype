@@ -7,11 +7,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS3280_Group_Project {
-	class clsSearchLogic 
+namespace CS3280_Group_Project
+{
+	class clsSearchLogic
 	{
 		public static List<clsOrder> GetOrders()
-        {
+		{
 			try
 			{
 				DataSet dsOrders = clsSearchSQL.GetOrders();
@@ -34,10 +35,10 @@ namespace CS3280_Group_Project {
 				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
 							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
 			}
-        }
+		}
 
 		public static List<int> GetInvoiceNumbers()
-        {
+		{
 			try
 			{
 				DataSet ds = clsSearchSQL.GetInvoiceNumbers();
@@ -51,7 +52,7 @@ namespace CS3280_Group_Project {
 
 					invoiceNumberList.Add(ID);
 				}
-			
+
 				return invoiceNumberList;
 			}
 			catch (Exception ex)
@@ -59,16 +60,16 @@ namespace CS3280_Group_Project {
 				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
 							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
 			}
-        }
+		}
 
 		public static List<DateTime> GetInvoiceDates()
-        {
+		{
 			DataSet ds = clsSearchSQL.GetInvoiceDates();
 
 			List<DateTime> invoiceDateList = new List<DateTime>();
 
-			for(int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
+			for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+			{
 				//check  this code here to see if it's correct
 				DateTime date = DateTime.Parse(ds.Tables[0].Rows[i][1].ToString());
 
@@ -76,10 +77,10 @@ namespace CS3280_Group_Project {
 			}
 
 			return invoiceDateList;
-        }
+		}
 
 		public static List<decimal> GetTotalCharges()
-        {
+		{
 			try
 			{
 				DataSet ds = clsSearchSQL.GetTotalCharges();
@@ -103,4 +104,5 @@ namespace CS3280_Group_Project {
 			}
 		}
 	}
+}
 
