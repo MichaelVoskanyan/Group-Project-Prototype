@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CS3280_Group_Project
 {
@@ -35,30 +23,30 @@ namespace CS3280_Group_Project
         /// <summary>
         /// constructor
         /// </summary>
-        public MainWindow()
+        public MainWindow ()
         {
-            InitializeComponent();
+            InitializeComponent ();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            loadOrders();
+            loadOrders ();
         }
 
         /// <summary>
         /// constructor to load form when an order has been selected from the search window
         /// </summary>
         /// <param name="OrderID"></param>
-        public MainWindow( int OrderID)
+        public MainWindow (int OrderID)
         {
-            InitializeComponent();
+            InitializeComponent ();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            lblOrderNumber.Content = OrderID.ToString();
-            loadOrders();
+            lblOrderNumber.Content = OrderID.ToString ();
+            loadOrders ();
         }
 
-        public  void loadOrders()
+        public void loadOrders ()
         {
-            List<clsOrder> orderlist = clsMainLogic.GetOrders();
-            var bindingList = new BindingList<clsOrder>(orderlist);
-            var source = new BindingSource(bindingList, null);
+            List<clsOrder> orderlist = clsMainLogic.GetOrders ();
+            var bindingList = new BindingList<clsOrder> (orderlist);
+            var source = new BindingSource (bindingList, null);
             orderGrid.ItemsSource = source;
         }
 
@@ -67,11 +55,11 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click (object sender, RoutedEventArgs e)
         {
-            wndSearch = new wndSearch();
-            this.Hide();
-            wndSearch.ShowDialog();
+            wndSearch = new wndSearch ();
+            this.Hide ();
+            wndSearch.ShowDialog ();
 
         }
 
@@ -80,11 +68,11 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_1 (object sender, RoutedEventArgs e)
         {
-            wndItems = new wndItems();
-            this.Hide();
-            wndItems.ShowDialog();
+            wndItems = new wndItems ();
+            this.Hide ();
+            wndItems.ShowDialog ();
         }
 
         /// <summary>
@@ -92,9 +80,9 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_2 (object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown ();
         }
     }
 }

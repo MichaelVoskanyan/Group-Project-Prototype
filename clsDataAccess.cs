@@ -17,15 +17,15 @@ public class clsDataAccess
     /// <summary>
     /// Constructor that sets the connection string to the database
     /// </summary>
-    public clsDataAccess()
+    public clsDataAccess ()
     {
         try
         {
-            sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Sports.mdb";
+            sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory () + "\\Sports.mdb";
         }
         catch (Exception ex)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
         }
     }
 
@@ -37,27 +37,27 @@ public class clsDataAccess
     /// <param name="sSQL">The SQL statement to be executed.</param>
     /// <param name="iRetVal">Reference parameter that returns the number of selected rows.</param>
     /// <returns>Returns a DataSet that contains the data from the SQL statement.</returns>
-    public DataSet ExecuteSQLStatement(string sSQL, ref int iRetVal)
+    public DataSet ExecuteSQLStatement (string sSQL, ref int iRetVal)
     {
         try
         {
             //Create a new DataSet
-            DataSet ds = new DataSet();
+            DataSet ds = new DataSet ();
 
-            using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+            using (OleDbConnection conn = new OleDbConnection (sConnectionString))
             {
-                using (OleDbDataAdapter adapter = new OleDbDataAdapter())
+                using (OleDbDataAdapter adapter = new OleDbDataAdapter ())
                 {
 
                     //Open the connection to the database
-                    conn.Open();
+                    conn.Open ();
 
                     //Add the information for the SelectCommand using the SQL statement and the connection object
-                    adapter.SelectCommand = new OleDbCommand(sSQL, conn);
+                    adapter.SelectCommand = new OleDbCommand (sSQL, conn);
                     adapter.SelectCommand.CommandTimeout = 0;
 
                     //Fill up the DataSet with data
-                    adapter.Fill(ds);
+                    adapter.Fill (ds);
                 }
             }
 
@@ -69,7 +69,7 @@ public class clsDataAccess
         }
         catch (Exception ex)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
         }
     }
 
@@ -79,27 +79,27 @@ public class clsDataAccess
     /// </summary>
     /// <param name="sSQL">The SQL statement to be executed.</param>
     /// <returns>Returns a string from the scalar SQL statement.</returns>
-    public string ExecuteScalarSQL(string sSQL)
+    public string ExecuteScalarSQL (string sSQL)
     {
         try
         {
             //Holds the return value
             object obj;
 
-            using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+            using (OleDbConnection conn = new OleDbConnection (sConnectionString))
             {
-                using (OleDbDataAdapter adapter = new OleDbDataAdapter())
+                using (OleDbDataAdapter adapter = new OleDbDataAdapter ())
                 {
 
                     //Open the connection to the database
-                    conn.Open();
+                    conn.Open ();
 
                     //Add the information for the SelectCommand using the SQL statement and the connection object
-                    adapter.SelectCommand = new OleDbCommand(sSQL, conn);
+                    adapter.SelectCommand = new OleDbCommand (sSQL, conn);
                     adapter.SelectCommand.CommandTimeout = 0;
 
                     //Execute the scalar SQL statement
-                    obj = adapter.SelectCommand.ExecuteScalar();
+                    obj = adapter.SelectCommand.ExecuteScalar ();
                 }
             }
 
@@ -112,12 +112,12 @@ public class clsDataAccess
             else
             {
                 //Return the value
-                return obj.ToString();
+                return obj.ToString ();
             }
         }
         catch (Exception ex)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
         }
     }
 
@@ -126,24 +126,24 @@ public class clsDataAccess
     /// </summary>
     /// <param name="sSQL">The SQL statement to be executed.</param>
     /// <returns>Returns the number of rows affected by the SQL statement.</returns>
-    public int ExecuteNonQuery(string sSQL)
+    public int ExecuteNonQuery (string sSQL)
     {
         try
         {
             //Number of rows affected
             int iNumRows;
 
-            using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+            using (OleDbConnection conn = new OleDbConnection (sConnectionString))
             {
                 //Open the connection to the database
-                conn.Open();
+                conn.Open ();
 
                 //Add the information for the SelectCommand using the SQL statement and the connection object
-                OleDbCommand cmd = new OleDbCommand(sSQL, conn);
+                OleDbCommand cmd = new OleDbCommand (sSQL, conn);
                 cmd.CommandTimeout = 0;
 
                 //Execute the non query SQL statement
-                iNumRows = cmd.ExecuteNonQuery();
+                iNumRows = cmd.ExecuteNonQuery ();
             }
 
             //return the number of rows affected
@@ -151,7 +151,7 @@ public class clsDataAccess
         }
         catch (Exception ex)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
         }
     }
 }
