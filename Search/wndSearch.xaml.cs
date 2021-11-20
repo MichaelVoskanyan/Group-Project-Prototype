@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,11 +16,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CS3280_Group_Project {
-	/// <summary>
-	/// Interaction logic for wndSearch.xaml
-	/// </summary>
-	public partial class wndSearch : Window {
+
+namespace CS3280_Group_Project
+{
+    /// <summary>
+    /// Interaction logic for wndSearch.xaml
+    /// </summary>
+    public partial class wndSearch : Window
+    {
+
 
 		public MainWindow MainWindow;
 		/// <summary>
@@ -291,4 +296,4 @@ namespace CS3280_Group_Project {
 			}
 		}
 	}
-}
+

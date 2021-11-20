@@ -7,7 +7,17 @@
         mc:Ignorable="d"
         Title="wndItems" Height="450" Width="800">
     <Grid>
-        <Button x:Name="btn_close" Content="Close" HorizontalAlignment="Left" Margin="342,349,0,0" VerticalAlignment="Top" Width="107" Height="43" Click="btn_close_Click"/>
+        <Button x:Name="btn_close" Content="Close" HorizontalAlignment="Left" Margin="10,349,0,0" VerticalAlignment="Top" Width="107" Height="43" Click="btn_close_Click"/>
+        <DataGrid x:Name="display_data_grid" HorizontalAlignment="Left" Height="320" Margin="10,24,0,0" VerticalAlignment="Top" Width="526"/>
+        <TextBox x:Name="item_name_input" HorizontalAlignment="Left" Height="23" Margin="662,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="item_price_input" HorizontalAlignment="Left" Height="23" Margin="662,136,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="564,86,0,0" TextWrapping="Wrap" Text="Item Name:" VerticalAlignment="Top" Height="23" Width="93" TextAlignment="Right" FontSize="15"/>
+        <TextBlock HorizontalAlignment="Left" Margin="564,136,0,0" TextWrapping="Wrap" Text="Item Price:" VerticalAlignment="Top" Height="23" Width="93" TextAlignment="Right" FontSize="15"/>
+        <Button x:Name="add_item_button" Content="Add Item" HorizontalAlignment="Left" Margin="682,179,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="add_item_button_Click"/>
+        <Button x:Name="delete_item_button" Content="Delete Item" HorizontalAlignment="Left" Margin="682,253,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="delete_item_button_Click"/>
+        <Label x:Name="warning_label" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="541,10,0,0" VerticalAlignment="Top" Width="241" Height="39"/>
+        <TextBlock x:Name="exception_textblock" HorizontalAlignment="Left" Margin="541,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="112" Width="241"/>
+        <Button x:Name="edit_item_button" Content="Edit Item" HorizontalAlignment="Left" Margin="682,216,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="edit_item_button_Click"/>
 
     </Grid>
 </Window>

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CS3280_Group_Project
+﻿namespace CS3280_Group_Project
 {
-   public  class clsItem
+    public class clsItem
     {
         /// <summary>
         /// private item ID variable
@@ -37,5 +31,13 @@ namespace CS3280_Group_Project
         /// public price with get and set
         /// </summary>
         public decimal Price { get => price; set => price = value; }
+
+
+        public clsItem (int _itemID, string _name, decimal _price)
+        {
+            itemID = _itemID;
+            name = _name;
+            price = _price;
+        }
     }
 }
