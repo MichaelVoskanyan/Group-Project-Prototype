@@ -7,8 +7,13 @@
         mc:Ignorable="d"
         Title="wndSearch" Height="450" Width="800">
     <Grid>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="110,313,0,0" VerticalAlignment="Top" Width="133" Height="47" Click="btnCancel_Click"/>
-        <Button x:Name="btnSelect" Content="Select Order" HorizontalAlignment="Left" Margin="464,313,0,0" VerticalAlignment="Top" Width="138" Height="47" Click="btnSelect_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="403,331,0,0" VerticalAlignment="Top" Width="133" Height="47" Click="btnCancel_Click"/>
+        <Button x:Name="btnSelect" Content="Select Order" HorizontalAlignment="Left" Margin="29,331,0,0" VerticalAlignment="Top" Width="138" Height="47" Click="btnSelect_Click"/>
+        <DataGrid Name="searchOrderGrid" HorizontalAlignment="Left" Height="254" Margin="29,28,0,0" VerticalAlignment="Top" Width="507" SelectionChanged="DataGrid_SelectionChanged"/>
+        <ComboBox Name="cboInvoiceNumber" HorizontalAlignment="Left" Margin="608,28,0,0" VerticalAlignment="Top" Width="120" Height="24" SelectionChanged="cboInvoiceNumber_SelectionChanged"/>
+        <ComboBox Name="cboInvoiceDate" HorizontalAlignment="Left" Margin="608,133,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cboInvoiceDate_SelectionChanged"/>
+        <ComboBox Name="cboTotalCharge" HorizontalAlignment="Left" Margin="608,236,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cboTotalCharge_SelectionChanged"/>
+        <Button Name="btnClearSelection" Content="Clear Selection" HorizontalAlignment="Left" Margin="626,335,0,0" VerticalAlignment="Top" Width="130" Height="43" Click="btnClearSelection_Click"/>
 
     </Grid>
 </Window>
