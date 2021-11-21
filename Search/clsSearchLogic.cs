@@ -11,7 +11,9 @@ namespace CS3280_Group_Project
 {
 	class clsSearchLogic
 	{
+
 		public static List<clsOrder> GetOrders ()
+
 		{
 			try
 			{
@@ -38,6 +40,7 @@ namespace CS3280_Group_Project
 		}
 
 		public static List<int> GetInvoiceNumbers ()
+
 		{
 			try
 			{
@@ -66,6 +69,7 @@ namespace CS3280_Group_Project
 		{
 			DataSet ds = clsSearchSQL.GetInvoiceDates ();
 
+
 			List<DateTime> invoiceDateList = new List<DateTime> ();
 
 			for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -80,6 +84,7 @@ namespace CS3280_Group_Project
 		}
 
 		public static List<decimal> GetTotalCharges ()
+
 		{
 			try
 			{
@@ -104,5 +109,6 @@ namespace CS3280_Group_Project
 			}
 		}
 	}
+}
 
 }
