@@ -3,7 +3,7 @@
  * Filename: clsItemsLogic.cs
  * Description:
  * This is the class file for clsItemsLogic. It contains the default constructor for the 
- * class, as well as the GetItems method, InsertItem, IncItemID, DeleteItem, and EditItem.
+ * class, as well as the GetItems method, InsertItem, DeleteItem, and EditItem.
  * These methods function as their names suggest, where GetItems returns a list of clsItem 
  * objects, InsertItem inserts a new item into the database, DeleteItem removes an item 
  * from the database, and EditItem updates the item name, price, or both in the datbase.
@@ -44,8 +44,14 @@ namespace CS3280_Group_Project
             {
                 // List of clsItem objects to contain the list pulled from the database
                 List<clsItem> itemsList = new List<clsItem> ();
-                // Dataset to contain the table pulled by the GetItems () method in the clsItemSQL class
-                DataSet ds = clsItemsSQL.GetItems ();
+                // clsDataAccess object created to run ExecuteSQLStatement method
+                clsDataAccess db = new clsDataAccess ();
+                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+                int iRets = 0;
+
+                // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
+                DataSet ds = db.ExecuteSQLStatement (clsItemsSQL.GetItems(), ref iRets);
+
 
                 // For-loop that pulls the data from the dataset into a clsItem object, and then adds the object to a list of clsItem objects
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -82,42 +88,15 @@ namespace CS3280_Group_Project
         {
             try
             {
-                //clsItemsSQL.InsertItem (IncItemID (GetItems ()), itemName, itemPrice);
-
+                // clsDataAccess object created to access the member function ExecuteNonQuery
+                clsDataAccess db = new clsDataAccess ();
                 // Calls the static member InsertItem from the clsItemsSQL class
                 clsItemsSQL.InsertItem (itemName, itemPrice);
-            }
-            catch (Exception ex) // Exception handling
-            {
-                throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
-            }
-        }
 
-        /// <summary>
-        /// This function is now irrelevant, but I've left it in here for the time being because of 
-        /// conflicts that will occur with a new push to the GIT repository. It's intended function 
-        /// was to increment the item id, since I was having some issues with the AUTO_INCREMENT in 
-        /// SQL. The issues have since been resolved, and as such this method is no longer relevant. 
-        /// <param name="items"> List of clsItem objects, passed in to find the largest item ID from the list </param>
-        /// <returns> New integer for the item ID, incremented by one from the largest item id that exists within the Item table </returns>
-        public static int IncItemID (List<clsItem> items)
-        {
-            try
-            {
-                // Integer that stores the largest value found in the Items table. 
-                int max = 0;
 
-                // Foreach that handles finding the largest item id value within the List<clsItem> items parameter 
-                foreach (clsItem item in items)
-                {
-                    if (max < int.Parse (item.ItemID.ToString ()))
-                    {
-                        max = int.Parse (item.ItemID.ToString ());  // If the present item is larger than the max value stored in the previous index, it updates the maximum value
-                    }
-                }
 
-                return ++max;   // returns the max item ID value incremented by one
+                // clsDataAccess member function ExecuteNonQuery called, passing in the sSQL string from above for the sql commands
+                db.ExecuteNonQuery (clsItemsSQL.InsertItem(itemName, itemPrice));
             }
             catch (Exception ex) // Exception handling
             {
@@ -134,8 +113,11 @@ namespace CS3280_Group_Project
         {
             try
             {
-                // Calls the clsItemsSQL static member DeleteItem (), passing in the id of the item to be deleted
-                clsItemsSQL.DeleteItem (itemID);
+                // clsDataAccess object created to access the non-static member function ExecuteNonQuery
+                clsDataAccess db = new clsDataAccess ();
+
+                // SQL code is passed into the method call as a parameter of the clsDataAccess member function ExecuteNonQuery
+                db.ExecuteNonQuery (clsItemsSQL.DeleteItem(itemID));
             }
             catch (Exception ex) // Exception handling
             {
@@ -159,15 +141,22 @@ namespace CS3280_Group_Project
         /// <param name="itemPrice"> The updated price of the item, pulled from the item price textbox on the window's UI </param>
         public static void EditItem (int itemID, string itemName, decimal itemPrice)
         {
+            // cldDataAccess object created for access to the ExecuteNonQuery member function
+            clsDataAccess db = new clsDataAccess ();
+
             // basic input checking to avoid exceptions being thrown. Our database currently only supports a maximum string length of 10, so this
             // if-else just makes sure that the item name passed in does not cause an exception. 
-            if (itemName.Length <= 10) 
-                clsItemsSQL.EditItem (itemID, itemName, itemPrice); // Calls the clsItemsSQL member EditItem, passes in the params for the method
+            if (itemName.Length <= 10)
+            {
+                // Function call for the clsDataAccess class' member function ExecuteNonQuery
+                db.ExecuteNonQuery (clsItemsSQL.EditItem (itemID, itemName, itemPrice));
+            }
+                
             else if (itemName.Length > 10)
             {
                 // Similar to the above EditItem call from clsItemsSQL, but uses a substring to pull the first 10 characters from the Name input,
                 // so as to avoid an exception being unneccesarily thrown.
-                clsItemsSQL.EditItem (itemID, itemName.Substring (0, 10), itemPrice); 
+                db.ExecuteNonQuery (clsItemsSQL.EditItem (itemID, itemName.Substring (0, 10), itemPrice));
             }
         }
     }
