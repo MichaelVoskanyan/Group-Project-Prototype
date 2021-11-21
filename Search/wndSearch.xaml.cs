@@ -19,11 +19,11 @@ using System.Windows.Shapes;
 
 namespace CS3280_Group_Project
 {
-    /// <summary>
-    /// Interaction logic for wndSearch.xaml
-    /// </summary>
-    public partial class wndSearch : Window
-    {
+	/// <summary>
+	/// Interaction logic for wndSearch.xaml
+	/// </summary>
+	public partial class wndSearch : Window
+	{
 
 
 		public MainWindow MainWindow;
@@ -32,9 +32,9 @@ namespace CS3280_Group_Project
 		/// </summary>
 		private int ID;
 
-		public wndSearch() 
+		public wndSearch()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
 			loadOrdersDataGrid();
@@ -48,7 +48,7 @@ namespace CS3280_Group_Project
 		}
 
 		private void loadInvoiceNumberComboBox()
-        {
+		{
 			try
 			{
 				//needs to load cboInvoiceNumber
@@ -70,7 +70,7 @@ namespace CS3280_Group_Project
 		}
 
 		private void loadInvoiceDateComboBox()
-        {
+		{
 			try
 			{
 				//needs to load cboInvoiceDate
@@ -92,7 +92,7 @@ namespace CS3280_Group_Project
 		}
 
 		private void loadTotalChargeComboBox()
-        {
+		{
 			try
 			{
 				//needs to load cboTotalCharge
@@ -113,7 +113,7 @@ namespace CS3280_Group_Project
 		}
 
 		private void loadOrdersDataGrid()
-        {
+		{
 			try
 			{
 				List<clsOrder> orderlist = clsSearchLogic.GetOrders();
@@ -132,8 +132,8 @@ namespace CS3280_Group_Project
 			}
 		}
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
+		private void btnCancel_Click(object sender, RoutedEventArgs e)
+		{
 			try
 			{
 				MainWindow = new MainWindow();
@@ -151,7 +151,7 @@ namespace CS3280_Group_Project
 			}
 		}
 
-        private void btnSelect_Click(object sender, RoutedEventArgs e)
+		private void btnSelect_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
@@ -169,11 +169,11 @@ namespace CS3280_Group_Project
 			finally
 			{
 				//This code always executes
-			}			
+			}
 		}
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+		private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
 			try
 			{
 				//orderID is set when selection is made in datagrid
@@ -188,16 +188,16 @@ namespace CS3280_Group_Project
 			finally
 			{
 				//This code always executes
-			}						
+			}
 		}
 
-        private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			try
 			{
 				try
 				{
-					
+
 				}
 				catch (Exception ex)
 				{
@@ -220,13 +220,13 @@ namespace CS3280_Group_Project
 			}
 		}
 
-        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+		private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
 			try
 			{
 				try
 				{
-					
+
 				}
 				catch (Exception ex)
 				{
@@ -249,11 +249,11 @@ namespace CS3280_Group_Project
 			}
 		}
 
-        private void cboTotalCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+		private void cboTotalCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
 			try
 			{
-				
+
 			}
 			catch (Exception ex)
 			{
@@ -266,11 +266,11 @@ namespace CS3280_Group_Project
 			}
 		}
 
-        private void btnClearSelection_Click(object sender, RoutedEventArgs e)
-        {
+		private void btnClearSelection_Click(object sender, RoutedEventArgs e)
+		{
 			try
 			{
-				
+
 			}
 			catch (Exception ex)
 			{
@@ -287,7 +287,7 @@ namespace CS3280_Group_Project
 		{
 			try
 			{
-                System.Windows.MessageBox.Show(sClass + "." + sMethod + "->" + sMessage);
+				System.Windows.MessageBox.Show(sClass + "." + sMethod + "->" + sMessage);
 			}
 			catch (Exception ex)
 			{
@@ -296,4 +296,5 @@ namespace CS3280_Group_Project
 			}
 		}
 	}
+}
 

@@ -11,24 +11,16 @@ namespace CS3280_Group_Project
         /// method to get all items
         /// </summary>
         /// <returns></returns>
-        public static DataSet GetItems ()
+        public static string GetItems ()
         {
             try
             {
-                clsDataAccess db = new clsDataAccess ();
-                //Create a DataSet to hold the data
-                DataSet ds = new DataSet ();
-
-                //Number of return values
-                int iRet = 0;
-
-                //Get all the values from the Items
-                ds = db.ExecuteSQLStatement (
-                   "SELECT Items.* FROM Items"
+                string sql =
+                   "SELECT Items.* FROM Items";
                     // "SELECT P.* FROM Passenger AS P"
-                    , ref iRet);
+           
 
-                return ds;
+                return sql;
             }
             catch (Exception ex)
             {
