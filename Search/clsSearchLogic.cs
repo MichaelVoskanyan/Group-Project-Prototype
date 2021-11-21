@@ -11,98 +11,104 @@ namespace CS3280_Group_Project
 {
 	class clsSearchLogic
 	{
-		public static List<clsOrder> GetOrders()
+
+		public static List<clsOrder> GetOrders ()
+
 		{
 			try
 			{
-				DataSet dsOrders = clsSearchSQL.GetOrders();
+				DataSet dsOrders = clsSearchSQL.GetOrders ();
 
-				List<clsOrder> orderList = new List<clsOrder>();
+				List<clsOrder> orderList = new List<clsOrder> ();
 
 				for (int i = 0; i < dsOrders.Tables[0].Rows.Count; i++)
 				{
-					clsOrder newOrder = new clsOrder(int.Parse(dsOrders.Tables[0].Rows[i][0].ToString()),
-							DateTime.Parse(dsOrders.Tables[0].Rows[i][1].ToString()),
-							decimal.Parse(dsOrders.Tables[0].Rows[i].ItemArray[2].ToString()));
+					clsOrder newOrder = new clsOrder (int.Parse (dsOrders.Tables[0].Rows[i][0].ToString ()),
+							DateTime.Parse (dsOrders.Tables[0].Rows[i][1].ToString ()),
+							decimal.Parse (dsOrders.Tables[0].Rows[i].ItemArray[2].ToString ()));
 
-					orderList.Add(newOrder);
+					orderList.Add (newOrder);
 				}
 
 				return orderList;
 			}
 			catch (Exception ex)
 			{
-				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+				throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod ().Name + "->" + ex.Message);
 			}
 		}
 
-		public static List<int> GetInvoiceNumbers()
+		public static List<int> GetInvoiceNumbers ()
+
 		{
 			try
 			{
-				DataSet ds = clsSearchSQL.GetInvoiceNumbers();
+				DataSet ds = clsSearchSQL.GetInvoiceNumbers ();
 
-				List<int> invoiceNumberList = new List<int>();
+				List<int> invoiceNumberList = new List<int> ();
 
 				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 				{
 					//check  this code here to see if it's correct
-					int ID = int.Parse(ds.Tables[0].Rows[i][0].ToString());
+					int ID = int.Parse (ds.Tables[0].Rows[i][0].ToString ());
 
-					invoiceNumberList.Add(ID);
+					invoiceNumberList.Add (ID);
 				}
 
 				return invoiceNumberList;
 			}
 			catch (Exception ex)
 			{
-				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+				throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod ().Name + "->" + ex.Message);
 			}
 		}
 
-		public static List<DateTime> GetInvoiceDates()
+		public static List<DateTime> GetInvoiceDates ()
 		{
-			DataSet ds = clsSearchSQL.GetInvoiceDates();
+			DataSet ds = clsSearchSQL.GetInvoiceDates ();
 
-			List<DateTime> invoiceDateList = new List<DateTime>();
+
+			List<DateTime> invoiceDateList = new List<DateTime> ();
 
 			for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 			{
 				//check  this code here to see if it's correct
-				DateTime date = DateTime.Parse(ds.Tables[0].Rows[i][1].ToString());
+				DateTime date = DateTime.Parse (ds.Tables[0].Rows[i][1].ToString ());
 
-				invoiceDateList.Add(date);
+				invoiceDateList.Add (date);
 			}
 
 			return invoiceDateList;
 		}
 
-		public static List<decimal> GetTotalCharges()
+		public static List<decimal> GetTotalCharges ()
+
 		{
 			try
 			{
-				DataSet ds = clsSearchSQL.GetTotalCharges();
+				DataSet ds = clsSearchSQL.GetTotalCharges ();
 
-				List<decimal> totalChargesList = new List<decimal>();
+				List<decimal> totalChargesList = new List<decimal> ();
 
 				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 				{
 					//check  this code here to see if it's correct
-					decimal charge = decimal.Parse(ds.Tables[0].Rows[i].ItemArray[2].ToString());
+					decimal charge = decimal.Parse (ds.Tables[0].Rows[i].ItemArray[2].ToString ());
 
-					totalChargesList.Add(charge);
+					totalChargesList.Add (charge);
 				}
 
 				return totalChargesList;
 			}
 			catch (Exception ex)
 			{
-				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+				throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod ().Name + "->" + ex.Message);
 			}
 		}
 	}
 }
 
+}
