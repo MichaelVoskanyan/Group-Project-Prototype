@@ -32,36 +32,36 @@ namespace CS3280_Group_Project
 		/// </summary>
 		private int ID;
 
-		public wndSearch()
+		public wndSearch ()
 		{
-			InitializeComponent();
+			InitializeComponent ();
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
-			loadOrdersDataGrid();
+			loadOrdersDataGrid ();
 
-			loadInvoiceNumberComboBox();
+			loadInvoiceNumberComboBox ();
 
-			loadInvoiceDateComboBox();
+			loadInvoiceDateComboBox ();
 
-			loadTotalChargeComboBox();
+			loadTotalChargeComboBox ();
 
 		}
 
-		private void loadInvoiceNumberComboBox()
+		private void loadInvoiceNumberComboBox ()
 		{
 			try
 			{
 				//needs to load cboInvoiceNumber
 				//trying to pass a list of type int for the invoice numbers from the database
-				List<int> invoiceNumberList = clsSearchLogic.GetInvoiceNumbers();
-				var bindingList = new BindingList<int>(invoiceNumberList);
-				var source = new BindingSource(bindingList, null);
+				List<int> invoiceNumberList = clsSearchLogic.GetInvoiceNumbers ();
+				var bindingList = new BindingList<int> (invoiceNumberList);
+				var source = new BindingSource (bindingList, null);
 				cboInvoiceNumber.ItemsSource = source;
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -69,20 +69,20 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void loadInvoiceDateComboBox()
+		private void loadInvoiceDateComboBox ()
 		{
 			try
 			{
 				//needs to load cboInvoiceDate
-				List<DateTime> invoiceDateList = clsSearchLogic.GetInvoiceDates();
-				var bindingList = new BindingList<DateTime>(invoiceDateList);
-				var source = new BindingSource(bindingList, null);
+				List<DateTime> invoiceDateList = clsSearchLogic.GetInvoiceDates ();
+				var bindingList = new BindingList<DateTime> (invoiceDateList);
+				var source = new BindingSource (bindingList, null);
 				cboInvoiceDate.ItemsSource = source;
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -91,20 +91,20 @@ namespace CS3280_Group_Project
 
 		}
 
-		private void loadTotalChargeComboBox()
+		private void loadTotalChargeComboBox ()
 		{
 			try
 			{
 				//needs to load cboTotalCharge
-				List<decimal> totalChargesList = clsSearchLogic.GetTotalCharges();
-				var bindingList = new BindingList<decimal>(totalChargesList);
-				var source = new BindingSource(bindingList, null);
+				List<decimal> totalChargesList = clsSearchLogic.GetTotalCharges ();
+				var bindingList = new BindingList<decimal> (totalChargesList);
+				var source = new BindingSource (bindingList, null);
 				cboTotalCharge.ItemsSource = source;
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -112,19 +112,19 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void loadOrdersDataGrid()
+		private void loadOrdersDataGrid ()
 		{
 			try
 			{
-				List<clsOrder> orderlist = clsSearchLogic.GetOrders();
-				var bindingList = new BindingList<clsOrder>(orderlist);
-				var source = new BindingSource(bindingList, null);
+				List<clsOrder> orderlist = clsSearchLogic.GetOrders ();
+				var bindingList = new BindingList<clsOrder> (orderlist);
+				var source = new BindingSource (bindingList, null);
 				searchOrderGrid.ItemsSource = source;
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -132,18 +132,18 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void btnCancel_Click(object sender, RoutedEventArgs e)
+		private void btnCancel_Click (object sender, RoutedEventArgs e)
 		{
 			try
 			{
-				MainWindow = new MainWindow();
-				this.Hide();
-				MainWindow.ShowDialog();
+				MainWindow = new MainWindow ();
+				this.Hide ();
+				MainWindow.ShowDialog ();
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -151,20 +151,20 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void btnSelect_Click(object sender, RoutedEventArgs e)
+		private void btnSelect_Click (object sender, RoutedEventArgs e)
 		{
 			try
 			{
 				//Once an order is selected in the datagrid the orderID is set in the DataGrid_SelectionChanged() method
 				//and a new MainWindow is created with the ID being passed to the MainWindow constructor
-				MainWindow = new MainWindow(ID);
-				this.Hide();
-				MainWindow.ShowDialog();
+				MainWindow = new MainWindow (ID);
+				this.Hide ();
+				MainWindow.ShowDialog ();
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -172,7 +172,7 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void DataGrid_SelectionChanged (object sender, SelectionChangedEventArgs e)
 		{
 			try
 			{
@@ -182,8 +182,8 @@ namespace CS3280_Group_Project
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -191,7 +191,7 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void cboInvoiceNumber_SelectionChanged (object sender, SelectionChangedEventArgs e)
 		{
 			try
 			{
@@ -201,8 +201,8 @@ namespace CS3280_Group_Project
 				}
 				catch (Exception ex)
 				{
-					HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-								MethodInfo.GetCurrentMethod().Name, ex.Message);
+					HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+								MethodInfo.GetCurrentMethod ().Name, ex.Message);
 				}
 				finally
 				{
@@ -211,8 +211,8 @@ namespace CS3280_Group_Project
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -220,7 +220,7 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void cboInvoiceDate_SelectionChanged (object sender, SelectionChangedEventArgs e)
 		{
 			try
 			{
@@ -230,8 +230,8 @@ namespace CS3280_Group_Project
 				}
 				catch (Exception ex)
 				{
-					HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-								MethodInfo.GetCurrentMethod().Name, ex.Message);
+					HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+								MethodInfo.GetCurrentMethod ().Name, ex.Message);
 				}
 				finally
 				{
@@ -240,8 +240,8 @@ namespace CS3280_Group_Project
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -249,7 +249,7 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void cboTotalCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void cboTotalCharge_SelectionChanged (object sender, SelectionChangedEventArgs e)
 		{
 			try
 			{
@@ -257,8 +257,8 @@ namespace CS3280_Group_Project
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -266,7 +266,7 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void btnClearSelection_Click(object sender, RoutedEventArgs e)
+		private void btnClearSelection_Click (object sender, RoutedEventArgs e)
 		{
 			try
 			{
@@ -274,8 +274,8 @@ namespace CS3280_Group_Project
 			}
 			catch (Exception ex)
 			{
-				HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-							MethodInfo.GetCurrentMethod().Name, ex.Message);
+				HandleError (MethodInfo.GetCurrentMethod ().DeclaringType.Name,
+							MethodInfo.GetCurrentMethod ().Name, ex.Message);
 			}
 			finally
 			{
@@ -283,15 +283,15 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		private void HandleError(string sClass, string sMethod, string sMessage)
+		private void HandleError (string sClass, string sMethod, string sMessage)
 		{
 			try
 			{
-				System.Windows.MessageBox.Show(sClass + "." + sMethod + "->" + sMessage);
+				System.Windows.MessageBox.Show (sClass + "." + sMethod + "->" + sMessage);
 			}
 			catch (Exception ex)
 			{
-				System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine +
+				System.IO.File.AppendAllText ("C:\\Error.txt", Environment.NewLine +
 								"HandleError Exception: " + ex.Message);
 			}
 		}
