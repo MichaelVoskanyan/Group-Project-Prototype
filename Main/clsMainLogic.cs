@@ -5,16 +5,31 @@ using System.Reflection;
 
 namespace CS3280_Group_Project
 {
+    /// <summary>
+    /// logic for main window
+    /// </summary>
     class clsMainLogic
     {
-
+        /// <summary>
+        /// class to hold data for the current selected order
+        /// </summary>
         public static clsOrder currentOrder;
 
+        /// <summary>
+        /// method to get order dataset and create list of orders and return that list of orders
+        /// </summary>
+        /// <returns>List of orders</returns>
         public static List<clsOrder> GetOrders ()
         {
             try
             {
-                DataSet orders = clsMainSQL.GetOrders ();
+                // clsDataAccess object created to run ExecuteSQLStatement method
+                clsDataAccess db = new clsDataAccess();
+                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+                int iRets = 0;
+
+                // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
+                DataSet orders = db.ExecuteSQLStatement(clsMainSQL.GetOrders(), ref iRets);
 
                 List<clsOrder> lstOrders = new List<clsOrder> ();
                 for (int i = 0; i < orders.Tables[0].Rows.Count; i++)

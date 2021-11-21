@@ -1,5 +1,5 @@
 
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,106 +9,141 @@ using System.Threading.Tasks;
 
 namespace CS3280_Group_Project
 {
-	class clsSearchLogic
-	{
+    class clsSearchLogic
+    {
+        /// <summary>
+        /// method to execute get orders qry and create a list of orders. returns list of orders
+        /// </summary>
+        /// <returns>list of orders</returns>
+        public static List<clsOrder> GetOrders()
 
-		public static List<clsOrder> GetOrders ()
+        {
+            try
+            {
+                // clsDataAccess object created to run ExecuteSQLStatement method
+                clsDataAccess db = new clsDataAccess();
+                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+                int iRets = 0;
 
-		{
-			try
-			{
-				DataSet dsOrders = clsSearchSQL.GetOrders ();
+                // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
+                DataSet dsOrders = db.ExecuteSQLStatement(clsSearchSQL.GetOrders(), ref iRets);
 
-				List<clsOrder> orderList = new List<clsOrder> ();
+                List<clsOrder> orderList = new List<clsOrder>();
 
-				for (int i = 0; i < dsOrders.Tables[0].Rows.Count; i++)
-				{
-					clsOrder newOrder = new clsOrder (int.Parse (dsOrders.Tables[0].Rows[i][0].ToString ()),
-							DateTime.Parse (dsOrders.Tables[0].Rows[i][1].ToString ()),
-							decimal.Parse (dsOrders.Tables[0].Rows[i].ItemArray[2].ToString ()));
+                for (int i = 0; i < dsOrders.Tables[0].Rows.Count; i++)
+                {
+                    clsOrder newOrder = new clsOrder(int.Parse(dsOrders.Tables[0].Rows[i][0].ToString()),
+                            DateTime.Parse(dsOrders.Tables[0].Rows[i][1].ToString()),
+                            decimal.Parse(dsOrders.Tables[0].Rows[i].ItemArray[2].ToString()));
 
-					orderList.Add (newOrder);
-				}
+                    orderList.Add(newOrder);
+                }
 
-				return orderList;
-			}
-			catch (Exception ex)
-			{
-				throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-							MethodInfo.GetCurrentMethod ().Name + "->" + ex.Message);
-			}
-		}
+                return orderList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                            MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+            }
+        }
+        /// <summary>
+        /// method to get all invoice numbers from databse and create a list of order numbers
+        /// </summary>
+        /// <returns>list of order IDs</returns>
+        public static List<int> GetInvoiceNumbers()
 
-		public static List<int> GetInvoiceNumbers ()
+        {
+            try
+            {
+                // clsDataAccess object created to run ExecuteSQLStatement method
+                clsDataAccess db = new clsDataAccess();
+                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+                int iRets = 0;
 
-		{
-			try
-			{
-				DataSet ds = clsSearchSQL.GetInvoiceNumbers ();
+                // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
+                DataSet ds = db.ExecuteSQLStatement(clsSearchSQL.GetInvoiceNumbers(), ref iRets);
 
-				List<int> invoiceNumberList = new List<int> ();
+                List<int> invoiceNumberList = new List<int>();
 
-				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-				{
-					//check  this code here to see if it's correct
-					int ID = int.Parse (ds.Tables[0].Rows[i][0].ToString ());
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    //check  this code here to see if it's correct
+                    int ID = int.Parse(ds.Tables[0].Rows[i][0].ToString());
 
-					invoiceNumberList.Add (ID);
-				}
+                    invoiceNumberList.Add(ID);
+                }
 
-				return invoiceNumberList;
-			}
-			catch (Exception ex)
-			{
-				throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-							MethodInfo.GetCurrentMethod ().Name + "->" + ex.Message);
-			}
-		}
+                return invoiceNumberList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                            MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+            }
+        }
+        /// <summary>
+        /// method to get all order dates from DB and return list of all order dates
+        /// </summary>
+        /// <returns>list of order dates</returns>
+        public static List<DateTime> GetInvoiceDates()
+        {
+            // clsDataAccess object created to run ExecuteSQLStatement method
+            clsDataAccess db = new clsDataAccess();
+            // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+            int iRets = 0;
 
-		public static List<DateTime> GetInvoiceDates ()
-		{
-			DataSet ds = clsSearchSQL.GetInvoiceDates ();
+            // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
+            DataSet ds = db.ExecuteSQLStatement(clsSearchSQL.GetInvoiceDates(), ref iRets);
 
 
-			List<DateTime> invoiceDateList = new List<DateTime> ();
+            List<DateTime> invoiceDateList = new List<DateTime>();
 
-			for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-			{
-				//check  this code here to see if it's correct
-				DateTime date = DateTime.Parse (ds.Tables[0].Rows[i][1].ToString ());
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                //check  this code here to see if it's correct
+                DateTime date = DateTime.Parse(ds.Tables[0].Rows[i][1].ToString());
 
-				invoiceDateList.Add (date);
-			}
+                invoiceDateList.Add(date);
+            }
 
-			return invoiceDateList;
-		}
+            return invoiceDateList;
+        }
+        /// <summary>
+        /// method to get total charges from DB and create a list of chrages
+        /// </summary>
+        /// <returns>returns a list of total charges</returns>
+        public static List<decimal> GetTotalCharges()
 
-		public static List<decimal> GetTotalCharges ()
+        {
+            try
+            {
+                // clsDataAccess object created to run ExecuteSQLStatement method
+                clsDataAccess db = new clsDataAccess();
+                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+                int iRets = 0;
 
-		{
-			try
-			{
-				DataSet ds = clsSearchSQL.GetTotalCharges ();
+                // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
+                DataSet ds = db.ExecuteSQLStatement(clsSearchSQL.GetTotalCharges(), ref iRets);
 
-				List<decimal> totalChargesList = new List<decimal> ();
+                List<decimal> totalChargesList = new List<decimal>();
 
-				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-				{
-					//check  this code here to see if it's correct
-					decimal charge = decimal.Parse (ds.Tables[0].Rows[i].ItemArray[2].ToString ());
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    //check  this code here to see if it's correct
+                    decimal charge = decimal.Parse(ds.Tables[0].Rows[i].ItemArray[2].ToString());
 
-					totalChargesList.Add (charge);
-				}
+                    totalChargesList.Add(charge);
+                }
 
-				return totalChargesList;
-			}
-			catch (Exception ex)
-			{
-				throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-							MethodInfo.GetCurrentMethod ().Name + "->" + ex.Message);
-			}
-		}
-	}
+                return totalChargesList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                            MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+            }
+        }
+    }
 }
 
-}

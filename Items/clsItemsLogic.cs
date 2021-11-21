@@ -82,8 +82,8 @@ namespace CS3280_Group_Project
         /// method found in the clsItemsSQL class, which handles the actual SQL portion of inserting
         /// a new item.
         /// </summary>
-        /// <param name="itemName"></param>
-        /// <param name="itemPrice"></param>
+        /// <param name="itemName">Item Name</param>
+        /// <param name="itemPrice">Item Price</param>
         public static void InsertItem (string itemName, decimal itemPrice)
         {
             try

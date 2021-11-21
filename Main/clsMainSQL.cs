@@ -29,29 +29,21 @@ namespace CS3280_Group_Project
         }
 
         /// <summary>
-        /// method to get all order data
+        /// method to get all order data sql
         /// </summary>
         /// <returns></returns>
-        public static DataSet GetOrders ()
+        public static string GetOrders ()
         {
             try
             {
-                clsDataAccess db = new clsDataAccess ();
-                //Create a DataSet to hold the data
-                DataSet ds = new DataSet ();
-
-                //Number of return values
-                int iRet = 0;
-
-                //Get all the Order info
-                ds = db.ExecuteSQLStatement (
+                string sql =
                     "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
                    " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
-                   "  GROUP BY Orders.Order_ID, Orders.Order_Date"
+                   "  GROUP BY Orders.Order_ID, Orders.Order_Date";
                     // "SELECT P.* FROM Passenger AS P"
-                    , ref iRet);
+                 
 
-                return ds;
+                return sql;
             }
             catch (Exception ex)
             {
@@ -64,25 +56,16 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="OrderID"></param>
         /// <returns></returns>
-        public static DataSet GetOrderItems (int OrderID)
+        public static string GetOrderItems (int OrderID)
         {
             try
             {
-                clsDataAccess db = new clsDataAccess ();
-                //Create a DataSet to hold the data
-                DataSet ds = new DataSet ();
-
-                //Number of return values
-                int iRet = 0;
-
-                //Get all the order items for an order ID
-                ds = db.ExecuteSQLStatement (
-                    "SELECT Order_Items.Order_ID, Items.Item_ID, Items.Item, Items.Price FROM Items " +
-                    "INNER JOIN Order_Items ON Items.Item_ID = Order_Items.Item_ID WHERE Items.Item_ID=" + OrderID
+                string sql =
+                         "SELECT Order_Items.Order_ID, Items.Item_ID, Items.Item, Items.Price FROM Items " +
+                         "INNER JOIN Order_Items ON Items.Item_ID = Order_Items.Item_ID WHERE Items.Item_ID=" + OrderID.ToString();
                     // "SELECT P.* FROM Passenger AS P"
-                    , ref iRet);
-
-                return ds;
+                 
+                return sql;
             }
             catch (Exception ex)
             {
@@ -95,28 +78,37 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="OrderID"></param>
         /// <returns></returns>
-        public static DataSet DeleteAllOrderItems (int OrderID)
+        public static string DeleteAllOrderItems (int OrderID)
         {
             try
             {
-                clsDataAccess db = new clsDataAccess ();
-                //Create a DataSet to hold the data
-                DataSet ds = new DataSet ();
+                string sql =
+                    "DELETE * FROM Order_Items WHERE Order_Items.Order_ID=" + OrderID.ToString()
+                   // "SELECT P.* FROM Passenger AS P"
+                   ;
 
-                //Number of return values
-                int iRet = 0;
-
-                //delete all items for an order
-                ds = db.ExecuteSQLStatement (
-                    "DELETE * FROM Order_Items WHERE Order_Items.Order_ID=" + OrderID
-                    // "SELECT P.* FROM Passenger AS P"
-                    , ref iRet);
-
-                return ds;
+                return sql;
             }
             catch (Exception ex)
             {
                 throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+            }
+        }
+
+        public static string DeleteOrder(int OrderID)
+        {
+            try
+            {
+                string sql =
+                    "DELETE * FROM Orders WHERE Orders.Order_ID=" + OrderID.ToString()
+                   // "SELECT P.* FROM Passenger AS P"
+                   ;
+
+                return sql;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -126,28 +118,42 @@ namespace CS3280_Group_Project
         /// <param name="OrderID">order id</param>
         /// <param name="ItemID">item id</param>
         /// <returns></returns>
-        public static DataSet InsertOrderItem (int OrderID, int ItemID)
+        public static string InsertOrderItem (int OrderID, int ItemID)
         {
             try
             {
-                clsDataAccess db = new clsDataAccess ();
-                //Create a DataSet to hold the data
-                DataSet ds = new DataSet ();
-
-                //Number of return values
-                int iRet = 0;
 
                 //Get all the order items for an order ID
-                ds = db.ExecuteSQLStatement (
-                    "INSERT INTO Order_Items ( Order_ID, Item_ID ) SELECT " + OrderID + " AS Expr1, " + ItemID + " AS Expr2"
+                string sql =
+                    "INSERT INTO Order_Items ( Order_ID, Item_ID ) SELECT " + OrderID.ToString() + " AS Expr1, " + ItemID.ToString() + " AS Expr2";
                     // "SELECT P.* FROM Passenger AS P"
-                    , ref iRet);
-
-                return ds;
+                return sql;
             }
             catch (Exception ex)
             {
                 throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// method to insert new order
+        /// </summary>
+        /// <param name="OrderDate"> Order Date </param>
+        /// <returns></returns>
+        public static string InsertOrder(DateTime OrderDate)
+        {
+            try
+            {
+
+                //Get all the order items for an order ID
+                string sql =
+                    "INSERT INTO Orders ( Order_Date ) Values (" + OrderDate + ")";
+                    // "SELECT P.* FROM Passenger AS P"
+                return sql;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 

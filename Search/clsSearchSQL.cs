@@ -11,22 +11,20 @@ namespace CS3280_Group_Project
 {
 	class clsSearchSQL
 	{
-		public static DataSet GetOrders ()
+		/// <summary>
+		/// method to get all order info sql qry
+		/// </summary>
+		/// <returns></returns>
+		public static string GetOrders ()
 		{
 			try
 			{
-				clsDataAccess da = new clsDataAccess ();
-				//Create a DataSet to hold the data
-				DataSet ds = new DataSet ();
-
-				int iRet = 0;
-
-				ds = da.ExecuteSQLStatement (
+				string sql =
 					   "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
 					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
-					  "  GROUP BY Orders.Order_ID, Orders.Order_Date", ref iRet);
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date";
 
-				return ds;
+				return sql;
 			}
 			catch (Exception ex)
 			{
@@ -35,19 +33,17 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		public static DataSet GetInvoiceNumbers ()
+		/// <summary>
+		/// method to get all invoice numbers query
+		/// </summary>
+		/// <returns></returns>
+		public static string GetInvoiceNumbers ()
 		{
 			try
 			{
-				clsDataAccess da = new clsDataAccess ();
-				//Create a DataSet to hold the data
-				DataSet ds = new DataSet ();
+				string sql = "Select Order_ID From Orders";
 
-				int iRet = 0;
-
-				ds = da.ExecuteSQLStatement ("/* need SQL here for invoice numbers*/", ref iRet);
-
-				return ds;
+				return sql;
 			}
 			catch (Exception ex)
 			{
@@ -56,19 +52,19 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		public static DataSet GetInvoiceDates ()
+		/// <summary>
+		/// method to get all invoice dates query
+		/// </summary>
+		/// <returns></returns>
+		public static string GetInvoiceDates ()
 		{
 			try
 			{
-				clsDataAccess da = new clsDataAccess ();
-				//Create a DataSet to hold the data
-				DataSet ds = new DataSet ();
+				string sql ="SELECT Orders.Order_Date" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date";
 
-				int iRet = 0;
-
-				ds = da.ExecuteSQLStatement ("/* need SQL here for invoice dates*/", ref iRet);
-
-				return ds;
+				return sql;
 			}
 			catch (Exception ex)
 			{
@@ -77,24 +73,158 @@ namespace CS3280_Group_Project
 			}
 		}
 
-		public static DataSet GetTotalCharges ()
+		/// <summary>
+		/// method to get all total charges query
+		/// </summary>
+		/// <returns></returns>
+		public static string GetTotalCharges ()
 		{
 			try
 			{
-				clsDataAccess da = new clsDataAccess ();
-				//Create a DataSet to hold the data
-				DataSet ds = new DataSet ();
-
-				int iRet = 0;
-
-				ds = da.ExecuteSQLStatement ("/* need SQL here for invoice dates*/", ref iRet);
-
-				return ds;
+				string sql = "SELECT Sum(Items.Price) AS SumOfPrice" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date";
+				return sql;
 			}
 			catch (Exception ex)
 			{
 				throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
 							MethodInfo.GetCurrentMethod ().Name + "->" + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// method to get list of filtered orders query with ID, Date and Total
+		/// </summary>
+		/// <param name="searchID">Order ID</param>
+		/// <param name="searchDate">Order Date</param>
+		/// <param name="searchTotal">Order Total</param>
+		/// <returns></returns>
+		public static string GetFilteredOrders(int searchID, DateTime searchDate, decimal searchTotal)
+		{
+			try
+			{
+				string sql = "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date" +
+					  " HAVING Orders.Order_ID="+searchID.ToString()+" AND Orders.Order_Date=#"+searchDate.ToString()+"# AND Sum(Items.Price)="+searchTotal.ToString()+";";
+				return sql;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// method to get filtered order list qry with ID
+		/// </summary>
+		/// <param name="searchID">Order ID</param>
+		/// <returns></returns>
+		public static string GetFilteredOrders(int searchID)
+		{
+			try
+			{
+				string sql = "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date" +
+					  " HAVING Orders.Order_ID=" + searchID.ToString() + ";";
+				return sql;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+			}
+		}
+		/// <summary>
+		/// method to get filtered ordrer list based on ID and Date
+		/// </summary>
+		/// <param name="searchID">Order ID</param>
+		/// <param name="searchDate">Order Date</param>
+		/// <returns></returns>
+		public static string GetFilteredOrders(int searchID, DateTime searchDate)
+		{
+			try
+			{
+				string sql = "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date" +
+					  " HAVING Orders.Order_ID=" + searchID.ToString() + " AND Orders.Order_Date=#" + searchDate.ToString() +";";
+				return sql;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// method to get filtered order list query based on order total
+		/// </summary>
+		/// <param name="searchTotal">Order total</param>
+		/// <returns></returns>
+		public static string GetFilteredOrders( decimal searchTotal)
+		{
+			try
+			{
+				string sql = "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date" +
+					  " HAVING Sum(Items.Price)=" + searchTotal.ToString() + ";";
+				return sql;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// method to get filtered order list query based on Order Date and Total
+		/// </summary>
+		/// <param name="searchDate"></param>
+		/// <param name="searchTotal"></param>
+		/// <returns></returns>
+		public static string GetFilteredOrders( DateTime searchDate, decimal searchTotal)
+		{
+			try
+			{
+				string sql = "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date" +
+					  " HAVING  Orders.Order_Date=#" + searchDate.ToString() + "# AND Sum(Items.Price)=" + searchTotal.ToString() + ";";
+				return sql;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// method to get filtered order list query based on order date
+		/// </summary>
+		/// <param name="searchDate">order date</param>
+		/// <returns></returns>
+		public static string GetFilteredOrders(DateTime searchDate)
+		{
+			try
+			{
+				string sql = "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
+					  " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
+					  "  GROUP BY Orders.Order_ID, Orders.Order_Date" +
+					  " HAVING  Orders.Order_Date=#" + searchDate.ToString() + ";";
+				return sql;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+							MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
 			}
 		}
 	}
