@@ -15,18 +15,23 @@
                 <MenuItem Header="_Exit" Click="MenuItem_Click_2"/>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="orderGrid" HorizontalAlignment="Left" Height="318" Margin="392,59,0,0" VerticalAlignment="Top" Width="373"/>
-        <DatePicker HorizontalAlignment="Left" Margin="154,85,0,0" VerticalAlignment="Top" Width="209"/>
-        <Label x:Name="lblOrderDate" Content="Order Date:" HorizontalAlignment="Left" Margin="44,83,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Right"/>
-        <Button x:Name="btnEdit" Content="&lt;-- Edit Order" HorizontalAlignment="Left" Margin="430,19,0,0" VerticalAlignment="Top" Width="101"/>
-        <Button x:Name="btn_submit" Content="Submit" HorizontalAlignment="Left" Margin="244,362,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid HorizontalAlignment="Left" Height="158" Margin="44,189,0,0" VerticalAlignment="Top" Width="319"/>
-        <ComboBox HorizontalAlignment="Left" Margin="107,128,0,0" VerticalAlignment="Top" Width="146"/>
-        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="277,128,0,0" VerticalAlignment="Top" Width="86"/>
-        <Label x:Name="lblOrderNumLabel" Content="Order Number: " HorizontalAlignment="Left" Margin="96,34,0,0" VerticalAlignment="Top" Width="90"/>
-        <Label x:Name="lblOrderNumber" Content="TBD" HorizontalAlignment="Left" Margin="221,34,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="96,362,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.496,3.438"/>
-        <Label x:Name="lblItem" Content="Item:" Margin="44,124,0,0" VerticalAlignment="Top" Width="42" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-        <Button x:Name="btnDelete" Content="Delete Order" HorizontalAlignment="Left" Margin="594,19,0,0" VerticalAlignment="Top" Width="99"/>
+        <DataGrid x:Name="orderGrid" HorizontalAlignment="Left" Height="278" Margin="468,104,0,0" VerticalAlignment="Top" Width="271" SelectionChanged="orderGrid_SelectionChanged"/>
+        <DatePicker x:Name="dpOrderDate" HorizontalAlignment="Left" Margin="176,41,0,0" VerticalAlignment="Top" Width="209"/>
+        <Label x:Name="lblOrderDate" Content="Order Date:" HorizontalAlignment="Left" Margin="66,39,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Right"/>
+        <Button x:Name="btnEdit" Content="Edit Order" HorizontalAlignment="Left" Margin="430,19,0,0" VerticalAlignment="Top" Width="101" Click="btnEdit_Click"/>
+        <Button x:Name="btn_submit" Content="Submit" HorizontalAlignment="Left" Margin="107,328,0,0" VerticalAlignment="Top" Width="86" Click="btn_submit_Click"/>
+        <DataGrid x:Name="dgItemGrid" HorizontalAlignment="Left" Height="278" Margin="258,104,0,0" VerticalAlignment="Top" Width="151"/>
+        <ComboBox x:Name="cb_chooseItem" HorizontalAlignment="Left" Margin="93,165,0,0" VerticalAlignment="Top" Width="146" SelectionChanged="cb_chooseItem_SelectionChanged"/>
+        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="107,252,0,0" VerticalAlignment="Top" Width="86" Click="btnAddItem_Click"/>
+        <Label x:Name="lblOrderNumLabel" Content="Order Number: " HorizontalAlignment="Left" Margin="146,5,0,0" VerticalAlignment="Top" Width="90"/>
+        <Label x:Name="lblOrderNumber" Content="" HorizontalAlignment="Left" Margin="271,5,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="106,290,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.496,3.438" Click="btnRemoveItem_Click"/>
+        <Label x:Name="lblItem" Content="Item:" Margin="30,161,0,0" VerticalAlignment="Top" Width="42" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
+        <Button x:Name="btnNewOrder" Content="New Order" HorizontalAlignment="Left" Margin="549,19,0,0" VerticalAlignment="Top" Width="99" Click="btnNewOrder_Click"/>
+        <Button x:Name="btnDeleteOrder" Content="Delete Order" HorizontalAlignment="Left" Margin="666,19,0,0" VerticalAlignment="Top" Width="99" Click="btnDeleteOrder_Click"/>
+        <Label x:Name="lblItemPrice" Content="Price:" HorizontalAlignment="Left" Margin="30,192,0,0" VerticalAlignment="Top" Width="42" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Height="23" Margin="93,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" IsEnabled="False"/>
+        <Label Content="Orders" HorizontalAlignment="Left" Margin="572,73,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label Content="Ordered Items&#xD;&#xA;" HorizontalAlignment="Left" Margin="284,73,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

@@ -32,7 +32,12 @@
         /// </summary>
         public decimal Price { get => price; set => price = value; }
 
-
+        /// <summary>
+        /// constructor for item with ID, name and price
+        /// </summary>
+        /// <param name="_itemID">Item ID</param>
+        /// <param name="_name">Name</param>
+        /// <param name="_price">Price</param>
         public clsItem (int _itemID, string _name, decimal _price)
         {
             itemID = _itemID;

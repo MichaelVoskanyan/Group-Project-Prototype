@@ -40,10 +40,11 @@ namespace CS3280_Group_Project
         public decimal OrderTotal { get => orderTotal; set => orderTotal = value; }
 
         /// <summary>
-        /// public list of items ordered with get and set
+        /// constructor for Order with ID, Date and Total
         /// </summary>
-        /// public List<clsItem> Items { get => items; set => items = value; }
-
+        /// <param name="ID">Order ID</param>
+        /// <param name="orDate">Order Date</param>
+        /// <param name="Total">Total</param>
         public clsOrder (int ID, DateTime orDate, decimal Total)
         {
             orderID = ID;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Reflection;
+using System.Windows;
 
 namespace CS3280_Group_Project
 {
@@ -17,9 +18,6 @@ namespace CS3280_Group_Project
             {
                 string sql =
                    "SELECT Items.* FROM Items";
-                    // "SELECT P.* FROM Passenger AS P"
-           
-
                 return sql;
             }
             catch (Exception ex)
@@ -40,7 +38,6 @@ namespace CS3280_Group_Project
                     "SELECT Orders.Order_ID, Orders.Order_Date, Sum(Items.Price) AS SumOfPrice, Count(Items.Item) AS CountOfItem" +
                    " FROM Items INNER JOIN (Orders INNER JOIN Order_Items ON Orders.Order_ID = Order_Items.Order_ID) ON Items.Item_ID = Order_Items.Item_ID" +
                    "  GROUP BY Orders.Order_ID, Orders.Order_Date";
-                    // "SELECT P.* FROM Passenger AS P"
                  
 
                 return sql;
@@ -61,10 +58,8 @@ namespace CS3280_Group_Project
             try
             {
                 string sql =
-                         "SELECT Order_Items.Order_ID, Items.Item_ID, Items.Item, Items.Price FROM Items " +
-                         "INNER JOIN Order_Items ON Items.Item_ID = Order_Items.Item_ID WHERE Items.Item_ID=" + OrderID.ToString();
-                    // "SELECT P.* FROM Passenger AS P"
-                 
+                         "SELECT Items.Item_ID, Items.Item, Items.Price FROM Items " +
+                         "INNER JOIN Order_Items ON Items.Item_ID = Order_Items.Item_ID WHERE Order_Items.Order_ID=" + OrderID.ToString();
                 return sql;
             }
             catch (Exception ex)
@@ -78,30 +73,33 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="OrderID"></param>
         /// <returns></returns>
-        public static string DeleteAllOrderItems (int OrderID)
+        public static string DeleteAllOrderItems(int OrderID)
         {
             try
             {
                 string sql =
                     "DELETE * FROM Order_Items WHERE Order_Items.Order_ID=" + OrderID.ToString()
-                   // "SELECT P.* FROM Passenger AS P"
                    ;
 
                 return sql;
             }
             catch (Exception ex)
             {
-                throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-
+        
+        /// <summary>
+        /// method to get sql query to delete a given order
+        /// </summary>
+        /// <param name="OrderID">order id</param>
+        /// <returns></returns>
         public static string DeleteOrder(int OrderID)
         {
             try
             {
                 string sql =
                     "DELETE * FROM Orders WHERE Orders.Order_ID=" + OrderID.ToString()
-                   // "SELECT P.* FROM Passenger AS P"
                    ;
 
                 return sql;
@@ -126,7 +124,6 @@ namespace CS3280_Group_Project
                 //Get all the order items for an order ID
                 string sql =
                     "INSERT INTO Order_Items ( Order_ID, Item_ID ) SELECT " + OrderID.ToString() + " AS Expr1, " + ItemID.ToString() + " AS Expr2";
-                    // "SELECT P.* FROM Passenger AS P"
                 return sql;
             }
             catch (Exception ex)
@@ -147,8 +144,7 @@ namespace CS3280_Group_Project
 
                 //Get all the order items for an order ID
                 string sql =
-                    "INSERT INTO Orders ( Order_Date ) Values (" + OrderDate + ")";
-                    // "SELECT P.* FROM Passenger AS P"
+                    "INSERT INTO Orders ( Order_Date ) Values (#" + OrderDate.Date.ToString() + "#)";
                 return sql;
             }
             catch (Exception ex)
@@ -157,7 +153,41 @@ namespace CS3280_Group_Project
             }
         }
 
+        /// <summary>
+        /// method to get all items
+        /// </summary>
+        /// <returns></returns>
+        public static string UpdateOrderDate(DateTime orderDate)
+        {
+            try
+            {
+                string sql =
+                "UPDATE Orders SET Orders.Order_Date = " + orderDate.Date.ToString() + ";";
+                return sql;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
+        // <summary>
+        /// method to get ID of newly inserted item
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNewID()
+        {
+            try
+            {
+                string sql =
+                "SELECT Max(Orders.Order_ID) AS Max_ID FROM Orders;";
+                return sql;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
     }
 }
