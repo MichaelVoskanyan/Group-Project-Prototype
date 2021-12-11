@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Reflection;
+using System.Windows;
 
 namespace CS3280_Group_Project
 {
@@ -61,10 +62,9 @@ namespace CS3280_Group_Project
             try
             {
                 string sql =
-                         "SELECT Order_Items.Order_ID, Items.Item_ID, Items.Item, Items.Price FROM Items " +
-                         "INNER JOIN Order_Items ON Items.Item_ID = Order_Items.Item_ID WHERE Items.Item_ID=" + OrderID.ToString();
-                    // "SELECT P.* FROM Passenger AS P"
-                 
+                         "SELECT Items.Item_ID, Items.Item, Items.Price FROM Items " +
+                         "INNER JOIN Order_Items ON Items.Item_ID = Order_Items.Item_ID WHERE Order_Items.Order_ID=" + OrderID.ToString();
+                // "SELECT P.* FROM Passenger AS P"
                 return sql;
             }
             catch (Exception ex)
@@ -147,7 +147,7 @@ namespace CS3280_Group_Project
 
                 //Get all the order items for an order ID
                 string sql =
-                    "INSERT INTO Orders ( Order_Date ) Values (" + OrderDate + ")";
+                    "INSERT INTO Orders ( Order_Date ) Values (" + OrderDate.Date.ToString() + ")";
                     // "SELECT P.* FROM Passenger AS P"
                 return sql;
             }
@@ -157,7 +157,26 @@ namespace CS3280_Group_Project
             }
         }
 
-
+        /// <summary>
+        /// method to get all items
+        /// </summary>
+        /// <returns></returns>
+        public static string UpdateOrderDate(DateTime orderDate)
+        {
+            try
+            {
+                string sql =
+                 //  "SELECT Items.* FROM Items";
+                // "SELECT P.* FROM Passenger AS P"
+                "UPDATE Orders SET Orders.Order_Date = " + orderDate.Date.ToString() + ";";
+                MessageBox.Show(sql);
+                return sql;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
     }
 }

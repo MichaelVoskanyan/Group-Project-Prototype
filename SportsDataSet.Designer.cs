@@ -523,7 +523,7 @@ namespace CS3280_Group_Project {
                 this.columnItem_ID.AutoIncrementStep = -1;
                 this.columnItem_ID.AllowDBNull = false;
                 this.columnItem_ID.Unique = true;
-                this.columnItem.MaxLength = 10;
+                this.columnItem.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1688,7 +1688,7 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::CS3280_Group_Project.Properties.Settings.Default.SportsConnectionString;
+            this._connection.ConnectionString = global::CS3280_Group_Project.Properties.Settings.Default.SportsConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2027,7 +2027,7 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::CS3280_Group_Project.Properties.Settings.Default.SportsConnectionString;
+            this._connection.ConnectionString = global::CS3280_Group_Project.Properties.Settings.Default.SportsConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2325,7 +2325,7 @@ namespace CS3280_Group_Project.SportsDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::CS3280_Group_Project.Properties.Settings.Default.SportsConnectionString;
+            this._connection.ConnectionString = global::CS3280_Group_Project.Properties.Settings.Default.SportsConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
