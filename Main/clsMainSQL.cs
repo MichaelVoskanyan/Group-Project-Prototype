@@ -147,8 +147,9 @@ namespace CS3280_Group_Project
 
                 //Get all the order items for an order ID
                 string sql =
-                    "INSERT INTO Orders ( Order_Date ) Values (" + OrderDate.Date.ToString() + ")";
-                    // "SELECT P.* FROM Passenger AS P"
+                    "INSERT INTO Orders ( Order_Date ) Values (#" + OrderDate.Date.ToString() + "#)";
+                // "SELECT P.* FROM Passenger AS P"
+                MessageBox.Show(sql);
                 return sql;
             }
             catch (Exception ex)
@@ -169,7 +170,26 @@ namespace CS3280_Group_Project
                  //  "SELECT Items.* FROM Items";
                 // "SELECT P.* FROM Passenger AS P"
                 "UPDATE Orders SET Orders.Order_Date = " + orderDate.Date.ToString() + ";";
-                MessageBox.Show(sql);
+                return sql;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        // <summary>
+        /// method to get ID of newly inserted item
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNewID()
+        {
+            try
+            {
+                string sql =
+                //  "SELECT Items.* FROM Items";
+                // "SELECT P.* FROM Passenger AS P"
+                "SELECT Max(Orders.Order_ID) AS Max_ID FROM Orders;";
                 return sql;
             }
             catch (Exception ex)

@@ -127,7 +127,8 @@ namespace CS3280_Group_Project
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             //check if item is selected or currently editing or adding a new item
-            if ((clsOrder)orderGrid.SelectedItem is null || clsMainLogic.isEditing || clsMainLogic.isloadingNew){
+            if ((clsOrder)orderGrid.SelectedItem is null || clsMainLogic.isEditing || clsMainLogic.isloadingNew)
+            {
                 return;
             }
             clsMainLogic.currentOrder = (clsOrder)orderGrid.SelectedItem;
@@ -153,20 +154,27 @@ namespace CS3280_Group_Project
 
         private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
-            if((clsItem)cb_chooseItem.SelectedItem is null || lblOrderNumber.Content.ToString() == "")
+            if ((clsItem)cb_chooseItem.SelectedItem is null || lblOrderNumber.Content.ToString() == "")
             {
                 return;
             }
+            if (clsMainLogic.OrderItems is null)
+            {
+                List<clsItem> Items = new List<clsItem>();
+                clsMainLogic.OrderItems = Items;
+            }
             clsMainLogic.OrderItems.Add((clsItem)cb_chooseItem.SelectedItem);
+
             var bindingList = new BindingList<clsItem>(clsMainLogic.OrderItems);
             var source = new BindingSource(bindingList, null);
             dgItemGrid.ItemsSource = source;
             cb_chooseItem.SelectedIndex = -1;
+            clsMainLogic.SelectedItem = null;
         }
 
         private void btnRemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            if((clsItem)dgItemGrid.SelectedItem is null)
+            if ((clsItem)dgItemGrid.SelectedItem is null)
             {
                 return;
             }
@@ -183,13 +191,39 @@ namespace CS3280_Group_Project
             {
                 clsMainLogic.UpdateOrderItems(clsMainLogic.currentOrder.OrderID);
                 clsMainLogic.isEditing = false;
-                cb_chooseItem.SelectedIndex = -1;
-                lblOrderNumber.Content = "";
-                dgItemGrid.ItemsSource = null;
-                dpOrderDate.SelectedDate = null;
-                dpOrderDate.DisplayDate = DateTime.Today;
-                loadOrders();
+            ///handle submit method for loading a new order
             }
+            else if (clsMainLogic.isloadingNew)
+            {
+                clsMainLogic.AddOrder((DateTime)dpOrderDate.SelectedDate);
+                clsMainLogic.isloadingNew = false;
+            }
+            cb_chooseItem.SelectedIndex = -1;
+            lblOrderNumber.Content = "";
+            clsMainLogic.OrderItems.Clear();
+            dgItemGrid.ItemsSource = clsMainLogic.OrderItems;
+            dpOrderDate.SelectedDate = null;
+            dpOrderDate.DisplayDate = DateTime.Today;
+            loadOrders();
+            clsMainLogic.currentOrder = null;
+            clsMainLogic.SelectedItem = null;
+        }
+
+        private void btnDeleteOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (orderGrid.SelectedItem is null)
+            {
+                return;
+            }
+            clsMainLogic.currentOrder = (clsOrder)orderGrid.SelectedItem;
+            clsMainLogic.DeleteOrder((clsOrder)orderGrid.SelectedItem);
+            loadOrders();
+        }
+
+        private void btnNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            lblOrderNumber.Content = "TBD";
+            clsMainLogic.isloadingNew = true;
         }
     }
 }

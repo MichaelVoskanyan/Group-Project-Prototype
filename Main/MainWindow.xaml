@@ -27,8 +27,8 @@
         <Label x:Name="lblOrderNumber" Content="" HorizontalAlignment="Left" Margin="271,5,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnRemoveItem" Content="Remove Item" HorizontalAlignment="Left" Margin="106,290,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.496,3.438" Click="btnRemoveItem_Click"/>
         <Label x:Name="lblItem" Content="Item:" Margin="30,161,0,0" VerticalAlignment="Top" Width="42" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-        <Button x:Name="btnNewOrder" Content="New Order" HorizontalAlignment="Left" Margin="549,19,0,0" VerticalAlignment="Top" Width="99"/>
-        <Button x:Name="btnDeleteOrder" Content="Delete Order" HorizontalAlignment="Left" Margin="666,19,0,0" VerticalAlignment="Top" Width="99"/>
+        <Button x:Name="btnNewOrder" Content="New Order" HorizontalAlignment="Left" Margin="549,19,0,0" VerticalAlignment="Top" Width="99" Click="btnNewOrder_Click"/>
+        <Button x:Name="btnDeleteOrder" Content="Delete Order" HorizontalAlignment="Left" Margin="666,19,0,0" VerticalAlignment="Top" Width="99" Click="btnDeleteOrder_Click"/>
         <Label x:Name="lblItemPrice" Content="Price:" HorizontalAlignment="Left" Margin="30,192,0,0" VerticalAlignment="Top" Width="42" HorizontalContentAlignment="Right"/>
         <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Height="23" Margin="93,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" IsEnabled="False"/>
         <Label Content="Orders" HorizontalAlignment="Left" Margin="572,73,0,0" VerticalAlignment="Top" Width="93"/>

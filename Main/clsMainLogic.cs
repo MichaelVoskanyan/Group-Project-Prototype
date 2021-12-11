@@ -29,12 +29,12 @@ namespace CS3280_Group_Project
         /// <summary>
         /// boolean to check if app is currently edting an order
         /// </summary>
-        public static bool isEditing;
+        public static bool isEditing = false;
 
         /// <summary>
         /// boolean to check if app is currenting loading a new item
         /// </summary>
-        public static bool isloadingNew;
+        public static bool isloadingNew = false;
 
         /// <summary>
         /// method to get order dataset and create list of orders and return that list of orders
@@ -148,6 +148,47 @@ namespace CS3280_Group_Project
                 foreach (clsItem I in OrderItems)
                 {
                     db.ExecuteNonQuery(clsMainSQL.InsertOrderItem(orderID, I.ItemID));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public static void DeleteOrder(clsOrder selectedItem)
+        {
+            try
+            {
+                clsDataAccess db = new clsDataAccess();
+                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+                int iRets = 0;
+                //clear existing items
+                db.ExecuteNonQuery(clsMainSQL.DeleteOrder(selectedItem.OrderID));
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        internal static void AddOrder(DateTime selectedDate)
+        {
+            try
+            {
+                clsDataAccess db = new clsDataAccess();
+                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+                int iRets = 0;
+                //clear existing items
+                db.ExecuteNonQuery(clsMainSQL.InsertOrder(selectedDate));
+
+                DataSet newIDSet = db.ExecuteSQLStatement(clsMainSQL.GetNewID(), ref iRets);
+                int newID = (int)newIDSet.Tables[0].Rows[0][0];
+                //load new items
+                foreach (clsItem I in OrderItems)
+                {
+                    db.ExecuteNonQuery(clsMainSQL.InsertOrderItem(newID, I.ItemID));
                 }
             }
             catch (Exception ex)
