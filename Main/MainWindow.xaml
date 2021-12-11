@@ -15,10 +15,10 @@
                 <MenuItem Header="_Exit" Click="MenuItem_Click_2"/>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="orderGrid" HorizontalAlignment="Left" Height="278" Margin="468,104,0,0" VerticalAlignment="Top" Width="271"/>
+        <DataGrid x:Name="orderGrid" HorizontalAlignment="Left" Height="278" Margin="468,104,0,0" VerticalAlignment="Top" Width="271" SelectionChanged="orderGrid_SelectionChanged"/>
         <DatePicker x:Name="dpOrderDate" HorizontalAlignment="Left" Margin="176,41,0,0" VerticalAlignment="Top" Width="209"/>
         <Label x:Name="lblOrderDate" Content="Order Date:" HorizontalAlignment="Left" Margin="66,39,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Right"/>
-        <Button x:Name="btnEdit" Content="&lt;-- Edit Order" HorizontalAlignment="Left" Margin="430,19,0,0" VerticalAlignment="Top" Width="101" Click="btnEdit_Click"/>
+        <Button x:Name="btnEdit" Content="Edit Order" HorizontalAlignment="Left" Margin="430,19,0,0" VerticalAlignment="Top" Width="101" Click="btnEdit_Click"/>
         <Button x:Name="btn_submit" Content="Submit" HorizontalAlignment="Left" Margin="107,328,0,0" VerticalAlignment="Top" Width="86" Click="btn_submit_Click"/>
         <DataGrid x:Name="dgItemGrid" HorizontalAlignment="Left" Height="278" Margin="258,104,0,0" VerticalAlignment="Top" Width="151"/>
         <ComboBox x:Name="cb_chooseItem" HorizontalAlignment="Left" Margin="93,165,0,0" VerticalAlignment="Top" Width="146" SelectionChanged="cb_chooseItem_SelectionChanged"/>

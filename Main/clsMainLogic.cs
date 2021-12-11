@@ -68,6 +68,11 @@ namespace CS3280_Group_Project
             }
         }
 
+        /// <summary>
+        /// method to get all items from DB and load them to a list of items and returns that list
+        /// </summary>
+        /// <param name="selectedOrder">selected order</param>
+        /// <returns></returns>
         public static List<clsItem> GetOrderItems(int selectedOrder)
         {
             try
@@ -97,7 +102,7 @@ namespace CS3280_Group_Project
         }
 
         /// <summary>
-        /// method to get all items from the databse
+        /// method to get all items from the databse and load to list of items and returns that list. 
         /// </summary>
         /// <returns></returns>
         public static List<clsItem> GetItems()
@@ -156,6 +161,10 @@ namespace CS3280_Group_Project
             }
         }
 
+        /// <summary>
+        /// delete a given order from the DB
+        /// </summary>
+        /// <param name="selectedItem">selected order</param>
         public static void DeleteOrder(clsOrder selectedItem)
         {
             try
@@ -173,7 +182,11 @@ namespace CS3280_Group_Project
             }
         }
 
-        internal static void AddOrder(DateTime selectedDate)
+        /// <summary>
+        /// add a given order to the DB
+        /// </summary>
+        /// <param name="selectedDate">selected date</param>
+        public static void AddOrder(DateTime selectedDate)
         {
             try
             {
