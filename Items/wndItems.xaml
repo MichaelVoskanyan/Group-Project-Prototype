@@ -15,7 +15,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="564,136,0,0" TextWrapping="Wrap" Text="Item Price:" VerticalAlignment="Top" Height="23" Width="93" TextAlignment="Right" FontSize="15"/>
         <Button x:Name="add_item_button" Content="Add Item" HorizontalAlignment="Left" Margin="682,179,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="add_item_button_Click"/>
         <Button x:Name="delete_item_button" Content="Delete Item" HorizontalAlignment="Left" Margin="682,253,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="delete_item_button_Click"/>
-        <Label x:Name="warning_label" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="541,10,0,0" VerticalAlignment="Top" Width="241" Height="39"/>
+        <Label x:Name="warning_label" HorizontalAlignment="Left" Margin="551,42,0,0" VerticalAlignment="Top" Width="241" Height="39" Foreground="Red"/>
         <TextBlock x:Name="exception_textblock" HorizontalAlignment="Left" Margin="541,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="112" Width="241"/>
         <Button x:Name="edit_item_button" Content="Edit Item" HorizontalAlignment="Left" Margin="682,216,0,0" VerticalAlignment="Top" Width="100" Height="32" Click="edit_item_button_Click"/>
 

@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
-
+using System.Windows;
 
 namespace CS3280_Group_Project
 {
@@ -109,7 +109,7 @@ namespace CS3280_Group_Project
                 // String containing the SQL code to be passed into the ExecuteNonQuery function
                 string sSQL =   "UPDATE Items " +
                                 "SET item = '" + itemName.ToString () + "' " +
-                                "AND price = " + itemPrice.ToString () + " " + 
+                                ", price = " + itemPrice.ToString () + " " + 
                                 "WHERE Item_ID = " + itemID.ToString () + ";";
 
                 return sSQL;

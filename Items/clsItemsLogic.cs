@@ -7,12 +7,6 @@
  * These methods function as their names suggest, where GetItems returns a list of clsItem 
  * objects, InsertItem inserts a new item into the database, DeleteItem removes an item 
  * from the database, and EditItem updates the item name, price, or both in the datbase.
- * Currently, any item inserted or deleted does not actually save inside the database, as the
- * SQL function "COMMIT" does not work for a reason not obvious to me. As such, any items added
- * or deleted from the database only appear at runtime, and when the program is restarted, the
- * changes do not carry over. The EditItem method also does not work presently. I believe this
- * is an issue with the actual SQL found in the clsItemsSQL class, but the item does not actually
- * change when the Edit Item button is clicked, with or without valid user input. 
  */
 using System;
 using System.Collections.Generic;
@@ -26,7 +20,7 @@ namespace CS3280_Group_Project
         /// <summary>
         /// Default constructor for clsItemsLogic class
         /// </summary>
-        public clsItemsLogic ()
+        public clsItemsLogic()
         {
 
         }
@@ -38,30 +32,30 @@ namespace CS3280_Group_Project
         /// SQL file. 
         /// </summary>
         /// <returns> A list of every item inside the Item table as a List<clsItem> </returns>
-        public static List<clsItem> GetItems ()
+        public static List<clsItem> GetItems()
         {
             try
             {
                 // List of clsItem objects to contain the list pulled from the database
-                List<clsItem> itemsList = new List<clsItem> ();
+                List<clsItem> itemsList = new List<clsItem>();
                 // clsDataAccess object created to run ExecuteSQLStatement method
-                clsDataAccess db = new clsDataAccess ();
+                clsDataAccess db = new clsDataAccess();
                 // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
                 int iRets = 0;
 
                 // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
-                DataSet ds = db.ExecuteSQLStatement (clsItemsSQL.GetItems(), ref iRets);
+                DataSet ds = db.ExecuteSQLStatement(clsItemsSQL.GetItems(), ref iRets);
 
 
                 // For-loop that pulls the data from the dataset into a clsItem object, and then adds the object to a list of clsItem objects
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     // Passes the data from each column into a new clsItem object
-                    clsItem tempItem = new clsItem (int.Parse (ds.Tables[0].Rows[i][0].ToString ()),
-                        ds.Tables[0].Rows[i][1].ToString (), decimal.Parse (ds.Tables[0].Rows[i][2].ToString ()));
+                    clsItem tempItem = new clsItem(int.Parse(ds.Tables[0].Rows[i][0].ToString()),
+                        ds.Tables[0].Rows[i][1].ToString(), decimal.Parse(ds.Tables[0].Rows[i][2].ToString()));
 
                     // Adds the clsItem to a list of clsItems (each item is accessed from the dataset row by row, indexed by i in the for-loop_
-                    itemsList.Add (tempItem);
+                    itemsList.Add(tempItem);
                 }
 
                 // Returns the list of clsItem objects
@@ -69,8 +63,8 @@ namespace CS3280_Group_Project
             }
             catch (Exception ex) // Exception handling
             {
-                throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -84,24 +78,24 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="itemName">Item Name</param>
         /// <param name="itemPrice">Item Price</param>
-        public static void InsertItem (string itemName, decimal itemPrice)
+        public static void InsertItem(string itemName, decimal itemPrice)
         {
             try
             {
                 // clsDataAccess object created to access the member function ExecuteNonQuery
-                clsDataAccess db = new clsDataAccess ();
+                clsDataAccess db = new clsDataAccess();
                 // Calls the static member InsertItem from the clsItemsSQL class
-                clsItemsSQL.InsertItem (itemName, itemPrice);
+                clsItemsSQL.InsertItem(itemName, itemPrice);
 
 
 
                 // clsDataAccess member function ExecuteNonQuery called, passing in the sSQL string from above for the sql commands
-                db.ExecuteNonQuery (clsItemsSQL.InsertItem(itemName, itemPrice));
+                db.ExecuteNonQuery(clsItemsSQL.InsertItem(itemName, itemPrice));
             }
             catch (Exception ex) // Exception handling
             {
-                throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -109,20 +103,20 @@ namespace CS3280_Group_Project
         /// This method deletes the item that the user selected from the datagrid in the Items Window UI. 
         /// </summary>
         /// <param name="itemID"> Item id of the selected item from the datagrid from the Items Window UI </param>
-        public static void DeleteItem (int itemID)
+        public static void DeleteItem(int itemID)
         {
             try
             {
                 // clsDataAccess object created to access the non-static member function ExecuteNonQuery
-                clsDataAccess db = new clsDataAccess ();
+                clsDataAccess db = new clsDataAccess();
 
                 // SQL code is passed into the method call as a parameter of the clsDataAccess member function ExecuteNonQuery
-                db.ExecuteNonQuery (clsItemsSQL.DeleteItem(itemID));
+                db.ExecuteNonQuery(clsItemsSQL.DeleteItem(itemID));
             }
             catch (Exception ex) // Exception handling
             {
-                throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
 
         }
@@ -139,24 +133,20 @@ namespace CS3280_Group_Project
         /// <param name="itemID"> Selected item id from the datagrid. This value serves to locate the item to be edited </param>
         /// <param name="itemName"> The new name of the item, pulled from the item name textbox on the window's UI </param>
         /// <param name="itemPrice"> The updated price of the item, pulled from the item price textbox on the window's UI </param>
-        public static void EditItem (int itemID, string itemName, decimal itemPrice)
+        public static void EditItem(int itemID, string itemName, decimal itemPrice)
         {
-            // cldDataAccess object created for access to the ExecuteNonQuery member function
-            clsDataAccess db = new clsDataAccess ();
+            try
+            {
+                // cldDataAccess object created for access to the ExecuteNonQuery member function
+                clsDataAccess db = new clsDataAccess();
 
-            // basic input checking to avoid exceptions being thrown. Our database currently only supports a maximum string length of 10, so this
-            // if-else just makes sure that the item name passed in does not cause an exception. 
-            if (itemName.Length <= 10)
-            {
-                // Function call for the clsDataAccess class' member function ExecuteNonQuery
-                db.ExecuteNonQuery (clsItemsSQL.EditItem (itemID, itemName, itemPrice));
+                    // Function call for the clsDataAccess class' member function ExecuteNonQuery
+                 db.ExecuteNonQuery(clsItemsSQL.EditItem(itemID, itemName, itemPrice));
             }
-                
-            else if (itemName.Length > 10)
+            catch (Exception ex) // Exception handling
             {
-                // Similar to the above EditItem call from clsItemsSQL, but uses a substring to pull the first 10 characters from the Name input,
-                // so as to avoid an exception being unneccesarily thrown.
-                db.ExecuteNonQuery (clsItemsSQL.EditItem (itemID, itemName.Substring (0, 10), itemPrice));
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
     }
