@@ -30,29 +30,47 @@ namespace CS3280_Group_Project
         /// </summary>
         public MainWindow MainWindow;
         /// <summary>
-        /// invoice number of order selected
+        /// boolean datagridID
         /// </summary>
-        private int ID;
+        int datagridID;
+        /// <summary>
+        /// boolean ID
+        /// </summary>
+        bool ID
+        /// <summary>
+        /// boolean date
+        /// </summary>
+        bool date;
+        /// <summary>
+        /// boolean total
+        /// </summary>
+        bool total;
+        /// <summary>
+        /// invoice number of order
+        /// </summary>
+        int orderID
         /// <summary>
         /// date of order
         /// </summary>
-        DateTime date;
+        DateTime orderdate;
         /// <summary>
-        /// total charge of order
+        /// decimal orderTotal
         /// </summary>
-        decimal total;
-
+        decimal ordertotal;
         /// <summary>
         /// constructor for search window
         /// </summary>
+        /// 
         public wndSearch()
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
-            ID = null;
-            date = null;
-            total = null;
+            dataGridID = 0;
+
+            ID = false;
+            date = false;
+            total = false;
 
             loadOrdersDataGrid();
 
@@ -72,31 +90,33 @@ namespace CS3280_Group_Project
         {
             try
             {
-                clsOrder order = (clsOrder)cboInvoiceNumber.SelectedItem;
-                ID = order.OrderID;
+                ID = true;
 
-                if(ID != null && date == null && total == null)
+                clsOrder order = (clsOrder)cboInvoiceNumber.SelectedItem;
+                orderID = order.OrderID;
+
+                if(ID != false && date == false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != null && date != null && total == null)
+                if(ID != false && date != false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != null && date != null && total != null)
+                if(ID != false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date, total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != null && date == null && total != null)
+                if(ID != false && date == false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID,total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
@@ -125,31 +145,33 @@ namespace CS3280_Group_Project
         {
             try
             {
-                clsOrder order = (clsOrder)cboInvoiceDate.SelectedItem;
-                date = order.OrderDate;
+                date = true;
 
-                if(ID != null && date != null && total == null)
+                clsOrder order = (clsOrder)cboInvoiceDate.SelectedItem;
+                orderdate = order.OrderDate;
+
+                if(ID != false && date != false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != null && date != null && total != null)
+                if(ID != false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date, total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == null && date != null && total == null)
+                if(ID == false && date != false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(date);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == null && date != null && total != null)
+                if(ID == false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(date, total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
@@ -177,31 +199,33 @@ namespace CS3280_Group_Project
         {
             try
             {
-                clsOrder order = (clsOrder)cboTotalCharge.SelectedItem;
-                total = order.OrderTotal;
+                total = true;
 
-                if(ID != null && date != null && total != null)
+                clsOrder order = (clsOrder)cboTotalCharge.SelectedItem;
+                ordertotal = order.OrderTotal;
+
+                if(ID != false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date, total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == null && date != null && total != null)
+                if(ID == false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(date, total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == null && date == null && total != null)
+                if(ID == false && date == false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != null && date == null && total != null)
+                if(ID != false && date == false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID,total);
                     var bindingList = new BindingList<clsOrder>(orderlist);
@@ -231,7 +255,7 @@ namespace CS3280_Group_Project
             {
                 //orderID is set when selection is made in datagrid
                 clsOrder order = (clsOrder)searchOrderGrid.SelectedItem;
-                ID = order.OrderID;
+                datagridID = order.OrderID;
             }
             catch (Exception ex)
             {
@@ -257,6 +281,10 @@ namespace CS3280_Group_Project
                 cboInvoiceNumber.SelectedIndex = -1;
                 cboInvoiceDate.SelectedIndex = -1;
                 cboTotalCharge.SelectedIndex = -1;
+                dataGridID = 0;
+                ID = false;
+                date = false;
+                total = false;
             }
             catch (Exception ex)
             {
@@ -377,7 +405,7 @@ namespace CS3280_Group_Project
             {
                 //when the invoice is selected, the Invoice ID is saved in a local variable
                 //that the main window can access.
-                if(ID != null)
+                if(datagridID != 0)
                 {
                     this.Close;
                 }                
