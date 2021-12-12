@@ -48,15 +48,19 @@ namespace CS3280_Group_Project
         /// constructor to load form when an order has been selected from the search window
         /// </summary>
         /// <param name="OrderID"></param>
-        public MainWindow(int OrderID)
+        public MainWindow(clsOrder Order)
         {
             try
             {
-                InitializeComponent();
                 WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-                lblOrderNumber.Content = OrderID.ToString();
+                InitializeComponent();
                 loadOrders();
+                clsMainLogic.currentOrder = Order;
+                lblOrderNumber.Content = Order.OrderID.ToString();
+                dpOrderDate.SelectedDate = Order.OrderDate;
                 loadItems();
+                loadOrderItems(clsMainLogic.currentOrder);
+                cb_chooseItem.SelectedIndex = -1;
                 DisableForm();
                 orderGrid.IsReadOnly = true;
                 dgItemGrid.IsReadOnly = true;
@@ -209,7 +213,7 @@ namespace CS3280_Group_Project
                     return;
                 }
                 wndItems = new wndItems();
-                this.Hide();
+                //this.Hide();
                 wndItems.ShowDialog();
             }
             catch (Exception ex)

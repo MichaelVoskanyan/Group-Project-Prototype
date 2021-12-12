@@ -90,35 +90,39 @@ namespace CS3280_Group_Project
         {
             try
             {
+                if (cboInvoiceNumber.SelectedItem is null)
+                {
+                    return;
+                }
                 ID = true;
 
-                clsOrder order = (clsOrder)cboInvoiceNumber.SelectedItem;
-                orderID = order.OrderID;
+                // clsOrder order = (clsOrder)cboInvoiceNumber.SelectedItem;
+                orderID = (int)cboInvoiceNumber.SelectedItem;
 
-                if(ID != false && date == false && total == false)
+                if (ID != false && date == false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != false && date != false && total == false)
+                if (ID != false && date != false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID, orderdate);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != false && date != false && total != false)
+                if (ID != false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID, orderdate, ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != false && date == false && total != false)
+                if (ID != false && date == false && total != false)
                 {
-                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID,ordertotal);
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID, ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
@@ -145,33 +149,37 @@ namespace CS3280_Group_Project
         {
             try
             {
+                if (cboInvoiceDate.SelectedItem is null)
+                {
+                    return;
+                }
                 date = true;
 
-                clsOrder order = (clsOrder)cboInvoiceDate.SelectedItem;
-                orderdate = order.OrderDate;
+                //clsOrder order = (clsOrder)cboInvoiceDate.SelectedItem;
+                orderdate = (DateTime)cboInvoiceDate.SelectedItem;
 
-                if(ID != false && date != false && total == false)
+                if (ID != false && date != false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID, orderdate);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != false && date != false && total != false)
+                if (ID != false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID, orderdate, ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == false && date != false && total == false)
+                if (ID == false && date != false && total == false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderdate);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == false && date != false && total != false)
+                if (ID == false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderdate, ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
@@ -199,33 +207,37 @@ namespace CS3280_Group_Project
         {
             try
             {
+                if (cboTotalCharge.SelectedItem is null)
+                {
+                    return;
+                }
                 total = true;
 
-                clsOrder order = (clsOrder)cboTotalCharge.SelectedItem;
-                ordertotal = order.OrderTotal;
+                //clsOrder order = (clsOrder)cboTotalCharge.SelectedItem;
+                ordertotal = (decimal)cboTotalCharge.SelectedItem;
 
-                if(ID != false && date != false && total != false)
+                if (ID != false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID, orderdate, ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == false && date != false && total != false)
+                if (ID == false && date != false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderdate, ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID == false && date == false && total != false)
+                if (ID == false && date == false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
                     var source = new BindingSource(bindingList, null);
                     searchOrderGrid.ItemsSource = source;
                 }
-                if(ID != false && date == false && total != false)
+                if (ID != false && date == false && total != false)
                 {
                     List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(orderID, ordertotal);
                     var bindingList = new BindingList<clsOrder>(orderlist);
@@ -253,6 +265,7 @@ namespace CS3280_Group_Project
         {
             try
             {
+
                 //orderID is set when selection is made in datagrid
                 clsOrder order = (clsOrder)searchOrderGrid.SelectedItem;
                 datagridID = order.OrderID;
@@ -405,10 +418,12 @@ namespace CS3280_Group_Project
             {
                 //when the invoice is selected, the Invoice ID is saved in a local variable
                 //that the main window can access.
-                if(datagridID != 0)
+                if (datagridID != 0)
                 {
                     this.Close();
-                }                
+                    MainWindow = new MainWindow((clsOrder)searchOrderGrid.SelectedItem);
+                    MainWindow.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
@@ -442,7 +457,7 @@ namespace CS3280_Group_Project
                 //This code always executes
             }
         }
-       
+
         /// <summary>
         /// method for error handling
         /// </summary>

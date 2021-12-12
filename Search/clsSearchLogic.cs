@@ -47,13 +47,13 @@ namespace CS3280_Group_Project
                             MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
             }
         }
-        
+
         /// <summary>
-		/// method to get list of filtered orders
-		/// </summary>
-		/// <param name="searchID">Order ID</param>
-		/// <param name="searchDate">Order Date</param>
-		/// <returns></returns>
+        /// method to get list of filtered orders
+        /// </summary>
+        /// <param name="searchID">Order ID</param>
+        /// <param name="searchDate">Order Date</param>
+        /// <returns></returns>
         public static List<clsOrder> GetFilteredOrders(int searchID, DateTime searchDate)
         {
             try
@@ -199,12 +199,12 @@ namespace CS3280_Group_Project
                             MethodInfo.GetCurrentMethod().Name + "->" + ex.Message);
             }
         }
-        
+
         /// <summary>
-		/// method to get list of filtered orders
-		/// </summary>
-		/// <param name="searchTotal">Order Total</param>
-		/// <returns></returns>
+        /// method to get list of filtered orders
+        /// </summary>
+        /// <param name="searchTotal">Order Total</param>
+        /// <returns></returns>
         public static List<clsOrder> GetFilteredOrders(decimal searchTotal)
         {
             try
@@ -246,25 +246,25 @@ namespace CS3280_Group_Project
         public static List<clsOrder> GetFilteredOrders(int searchID, decimal searchTotal)
         {
             // clsDataAccess object created to run ExecuteSQLStatement method
-                clsDataAccess db = new clsDataAccess();
-                // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
-                int iRets = 0;
+            clsDataAccess db = new clsDataAccess();
+            // integer to be passed as reference into ExecuteSQLStatement, returns the number of results fetched by the SQL Query
+            int iRets = 0;
 
-                // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
-                DataSet dsOrders = db.ExecuteSQLStatement(clsSearchSQL.GetFilteredOrders(searchID, searchTotal), ref iRets);
+            // DataSet to temporarily hold the data from the clsDataAccess, passes data into the List<clsItem> inside the clsItemsLogic class
+            DataSet dsOrders = db.ExecuteSQLStatement(clsSearchSQL.GetFilteredOrders(searchID, searchTotal), ref iRets);
 
-                List<clsOrder> orderList = new List<clsOrder>();
+            List<clsOrder> orderList = new List<clsOrder>();
 
-                for (int i = 0; i < dsOrders.Tables[0].Rows.Count; i++)
-                {
-                    clsOrder newOrder = new clsOrder(int.Parse(dsOrders.Tables[0].Rows[i][0].ToString()),
-                            DateTime.Parse(dsOrders.Tables[0].Rows[i][1].ToString()),
-                            decimal.Parse(dsOrders.Tables[0].Rows[i].ItemArray[2].ToString()));
+            for (int i = 0; i < dsOrders.Tables[0].Rows.Count; i++)
+            {
+                clsOrder newOrder = new clsOrder(int.Parse(dsOrders.Tables[0].Rows[i][0].ToString()),
+                        DateTime.Parse(dsOrders.Tables[0].Rows[i][1].ToString()),
+                        decimal.Parse(dsOrders.Tables[0].Rows[i].ItemArray[2].ToString()));
 
-                    orderList.Add(newOrder);
-                }
+                orderList.Add(newOrder);
+            }
 
-                return orderList;
+            return orderList;
         }
 
         /// <summary>
@@ -359,7 +359,7 @@ namespace CS3280_Group_Project
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 //check  this code here to see if it's correct
-                DateTime date = DateTime.Parse(ds.Tables[0].Rows[i][1].ToString());
+                DateTime date = DateTime.Parse(ds.Tables[0].Rows[i][0].ToString());
 
                 invoiceDateList.Add(date);
             }
@@ -387,7 +387,7 @@ namespace CS3280_Group_Project
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     //check  this code here to see if it's correct
-                    decimal charge = decimal.Parse(ds.Tables[0].Rows[i].ItemArray[2].ToString());
+                    decimal charge = decimal.Parse(ds.Tables[0].Rows[i][0].ToString());
 
                     totalChargesList.Add(charge);
                 }
