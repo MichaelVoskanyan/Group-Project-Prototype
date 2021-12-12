@@ -30,9 +30,17 @@ namespace CS3280_Group_Project
         /// </summary>
         public MainWindow MainWindow;
         /// <summary>
-        /// int ID of order selected
+        /// invoice number of order selected
         /// </summary>
         private int ID;
+        /// <summary>
+        /// date of order
+        /// </summary>
+        DateTime date;
+        /// <summary>
+        /// total charge of order
+        /// </summary>
+        decimal total;
 
         /// <summary>
         /// constructor for search window
@@ -42,14 +50,223 @@ namespace CS3280_Group_Project
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
+            ID = null;
+            date = null;
+            total = null;
+
             loadOrdersDataGrid();
 
-          //  loadInvoiceNumberComboBox();
+            loadInvoiceNumberComboBox();
 
-         //   loadInvoiceDateComboBox();
+            loadInvoiceDateComboBox();
 
-          //  loadTotalChargeComboBox();
+            loadTotalChargeComboBox();
+        }
 
+        /// <summary>
+        /// method to select an invoice number from the dropdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                clsOrder order = (clsOrder)cboInvoiceNumber.SelectedItem;
+                ID = order.OrderID;
+
+                if(ID != null && date == null && total == null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID != null && date != null && total == null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID != null && date != null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date, total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID != null && date == null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID,total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+            finally
+            {
+                //This code always executes
+            }
+        }
+
+        /// <summary>
+        /// method to select an invoice data from the dropdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                clsOrder order = (clsOrder)cboInvoiceDate.SelectedItem;
+                date = order.OrderDate;
+
+                if(ID != null && date != null && total == null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID != null && date != null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date, total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID == null && date != null && total == null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(date);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID == null && date != null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(date, total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+            finally
+            {
+                //This code always executes
+            }
+        }
+
+        /// <summary>
+        /// method to select a total charge from the dropdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboTotalCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                clsOrder order = (clsOrder)cboTotalCharge.SelectedItem;
+                total = order.OrderTotal;
+
+                if(ID != null && date != null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID, date, total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID == null && date != null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(date, total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID == null && date == null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+                if(ID != null && date == null && total != null)
+                {
+                    List<clsOrder> orderlist = clsSearchLogic.GetFilteredOrders(ID,total);
+                    var bindingList = new BindingList<clsOrder>(orderlist);
+                    var source = new BindingSource(bindingList, null);
+                    searchOrderGrid.ItemsSource = source;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+            finally
+            {
+                //This code always executes
+            }
+        }
+
+        /// <summary>
+        /// method used to select an invoice number from the order data grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                //orderID is set when selection is made in datagrid
+                clsOrder order = (clsOrder)searchOrderGrid.SelectedItem;
+                ID = order.OrderID;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+            finally
+            {
+                //This code always executes
+            }
+        }
+
+        /// <summary>
+        /// A clear selection button should reset the form to its initial state.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClearSelection_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                loadOrdersDataGrid();
+                cboInvoiceNumber.SelectedIndex = -1;
+                cboInvoiceDate.SelectedIndex = -1;
+                cboTotalCharge.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+            finally
+            {
+                //This code always executes
+            }
         }
 
         /// <summary>
@@ -101,6 +318,7 @@ namespace CS3280_Group_Project
             }
 
         }
+
         /// <summary>
         /// method to get list of total charges from logic class and fill total charge combo box
         /// </summary>
@@ -124,6 +342,7 @@ namespace CS3280_Group_Project
                 //This code always executes
             }
         }
+
         /// <summary>
         /// method to get all order info from logic class and load into order data grid
         /// </summary>
@@ -146,29 +365,7 @@ namespace CS3280_Group_Project
                 //This code always executes
             }
         }
-        /// <summary>
-        /// method to cancel the search. closes current form and reopens main form with no order selected
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                MainWindow = new MainWindow();
-                this.Hide();
-                MainWindow.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-            finally
-            {
-                //This code always executes
-            }
-        }
+
         /// <summary>
         /// method to select an order and pass that order to the main window. ID is passed to overloaded constructor to load form with an order already selected to edit
         /// </summary>
@@ -178,100 +375,34 @@ namespace CS3280_Group_Project
         {
             try
             {
-                //Once an order is selected in the datagrid the orderID is set in the DataGrid_SelectionChanged() method
-                //and a new MainWindow is created with the ID being passed to the MainWindow constructor
-                MainWindow = new MainWindow(ID);
-                this.Hide();
-                MainWindow.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-            finally
-            {
-                //This code always executes
-            }
-        }
-        /// <summary>
-        /// method used to select an invoice index from the order data grid
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                //orderID is set when selection is made in datagrid
-                clsOrder order = (clsOrder)searchOrderGrid.SelectedItem;
-                ID = order.OrderID;
-            }
-            catch (Exception ex)
-            {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-            finally
-            {
-                //This code always executes
-            }
-        }
-        /// <summary>
-        /// method to select an invoice number from the dropdown
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                try
+                //when the invoice is selected, the Invoice ID is saved in a local variable
+                //that the main window can access.
+                if(ID != null)
                 {
+                    this.Close;
+                }                
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+            finally
+            {
+                //This code always executes
+            }
+        }
 
-                }
-                catch (Exception ex)
-                {
-                    HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                                MethodInfo.GetCurrentMethod().Name, ex.Message);
-                }
-                finally
-                {
-                    //This code always executes
-                }
-            }
-            catch (Exception ex)
-            {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-            finally
-            {
-                //This code always executes
-            }
-        }
         /// <summary>
-        /// method to select an invoice data from the dropdown
+        /// the search window should close and the main form get focus.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                                MethodInfo.GetCurrentMethod().Name, ex.Message);
-                }
-                finally
-                {
-                    //This code always executes
-                }
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -283,48 +414,7 @@ namespace CS3280_Group_Project
                 //This code always executes
             }
         }
-        /// <summary>
-        /// method to select a total charge from the dropdown
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cboTotalCharge_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-            finally
-            {
-                //This code always executes
-            }
-        }
-        /// <summary>
-        /// method to clear all selections and reload form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnClearSelection_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-            finally
-            {
-                //This code always executes
-            }
-        }
+       
         /// <summary>
         /// method for error handling
         /// </summary>
