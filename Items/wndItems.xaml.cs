@@ -35,14 +35,22 @@ namespace CS3280_Group_Project
         /// <summary>
         /// Contructor for the wndItems window. 
         /// </summary>
-        public wndItems ()
+        public wndItems()
         {
-            // Initializes the window and components within it
-            InitializeComponent ();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            try
+            {
+                // Initializes the window and components within it
+                InitializeComponent();
+                WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
-            // Initializes the datagrid, fills it with a list of (clsItem)'s for the user to see
-            display_data_grid.ItemsSource = clsItemsLogic.GetItems ();
+                // Initializes the datagrid, fills it with a list of (clsItem)'s for the user to see
+                display_data_grid.ItemsSource = clsItemsLogic.GetItems();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -52,14 +60,22 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_close_Click (object sender, RoutedEventArgs e)
+        private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            // Hides this window
-            this.Hide ();
-            // Creates a new instance of MainWindow
-            MainWindow = new MainWindow ();
-            // Shows the new MainWindow
-            MainWindow.ShowDialog ();
+            try
+            {
+                // Hides this window
+                this.Hide();
+                // Creates a new instance of MainWindow
+                MainWindow = new MainWindow();
+                // Shows the new MainWindow
+                MainWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
 
         }
 
@@ -73,25 +89,23 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void add_item_button_Click (object sender, RoutedEventArgs e)
+        private void add_item_button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 // Decimal var which contains the parsed decimal value from the Item Price textbox
                 decimal parse;
                 // Checks to see that both inputs aren't empty
-                if (item_name_input.Text.ToString () != "" && decimal.TryParse (item_price_input.Text, out parse))
+                if (item_name_input.Text.ToString() != "" && decimal.TryParse(item_price_input.Text, out parse))
                 {
-                    // Due to a bug in the database we are using, the character limit for an item name is set to 10. This checks to 
-                    // see if the item name length is less than 10.
-                    if (item_name_input.Text.ToString ().Length <= 10)
-                        clsItemsLogic.InsertItem (item_name_input.Text.ToString (), parse); // if the item name < 10, it sends the whole item name to the InsertItem method
-                    else if (item_name_input.Text.ToString ().Length > 10)
-                        clsItemsLogic.InsertItem (item_name_input.Text.ToString ().Substring (0, 10), parse); // If longer than 10, it sends the substring up to the 10th char in the string
+                    if (item_name_input.Text.ToString().Length <= 10)
+                        clsItemsLogic.InsertItem(item_name_input.Text.ToString(), parse); // if the item name < 10, it sends the whole item name to the InsertItem method
+                    else if (item_name_input.Text.ToString().Length > 10)
+                        clsItemsLogic.InsertItem(item_name_input.Text.ToString().Substring(0, 10), parse); // If longer than 10, it sends the substring up to the 10th char in the string
                     warning_label.Content = ""; // resets the warning label in case it was displaying a message from a previous error. 
 
                     // Updates the datagrid to display an updates list of items.
-                    display_data_grid.ItemsSource = clsItemsLogic.GetItems ();
+                    display_data_grid.ItemsSource = clsItemsLogic.GetItems();
                 }
                 else // If either element is blank
                 {
@@ -102,12 +116,11 @@ namespace CS3280_Group_Project
                     warning_label.Content = "Please input a valid name and price";
                 }
             }
-            catch (Exception ex) // Exception handling for the above code within the try block
+            catch (Exception ex)
             {
-                throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
-     
         }
 
         /// <summary>
@@ -118,7 +131,7 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void delete_item_button_Click (object sender, RoutedEventArgs e)
+        private void delete_item_button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -129,20 +142,17 @@ namespace CS3280_Group_Project
                     clsItem item = (clsItem)display_data_grid.SelectedItem;
 
                     // runs the DeleteItem method in the Items Logic class, passes the itemID as a parameter
-                    clsItemsLogic.DeleteItem (item.ItemID);
+                    clsItemsLogic.DeleteItem(item.ItemID);
 
                     // updates the datagrid to reflect the changes in the database
-                    display_data_grid.ItemsSource = clsItemsLogic.GetItems ();
+                    display_data_grid.ItemsSource = clsItemsLogic.GetItems();
                 }
             }
-            /*  This catch block doesn't throw an exception that freezes the entire program on debugging, but instead displays
-                the exception message in a textblock on the window. This was for debugging purposes, but I figured it looked better
-                than if the entire program stopped in case of an exception. */
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                exception_textblock.Text = ex.Message;
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
-
         }
 
         /// <summary>
@@ -154,29 +164,50 @@ namespace CS3280_Group_Project
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void edit_item_button_Click (object sender, RoutedEventArgs e)
+        private void edit_item_button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Creates a new clsItem which contains the datagrids selected item.
-                clsItem item = (clsItem)display_data_grid.SelectedItem;
-
-                // Item ID is pulled from the new clsItem above, and the new item name and price are pulled from the textboxes, (EDITING DOESN'T HAPPEN IN THE DATAGRID)
-                clsItemsLogic.EditItem (item.ItemID, item_name_input.ToString (), decimal.Parse (item_price_input.Text.ToString ()));
-
-                // Updates the datagrid to reflect the "changes" to the item
-                display_data_grid.ItemsSource = clsItemsLogic.GetItems ();
-                /* Console.WriteLine (item.ItemID);
-                Console.WriteLine (item_name_input.Text.ToString ());
-                Console.WriteLine (decimal.Parse (item_price_input.Text.ToString ())); */
+                if (item_name_input.Text.ToString() == "" || item_price_input.Text.ToString() == "" || (clsItem)display_data_grid.SelectedItem is null)
+                {
+                    warning_label.Content = "Fill out Item details to make an edit";
+                }
+                else
+                {
+                    // Creates a new clsItem which contains the datagrids selected item.
+                    clsItem item = (clsItem)display_data_grid.SelectedItem;
+                    // Item ID is pulled from the new clsItem above, and the new item name and price are pulled from the textboxes, (EDITING DOESN'T HAPPEN IN THE DATAGRID)
+                    clsItemsLogic.EditItem(item.ItemID, item_name_input.Text.ToString(), decimal.Parse(item_price_input.Text.ToString()));
+                    // Updates the datagrid to reflect the "changes" to the item
+                    display_data_grid.ItemsSource = clsItemsLogic.GetItems();
+                    warning_label.Content = "";
+                    item_price_input.Text = "";
+                    item_name_input.Text = "";
+                }
             }
-            catch (Exception ex) // Normal exception handling for this method. 
+            catch (Exception ex)
             {
-                throw new Exception (MethodInfo.GetCurrentMethod ().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod ().Name + " -> " + ex.Message);
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
+        }
 
-            
+        /// <summary>
+        /// method to handle all passed in errors
+        /// </summary>
+        /// <param name="sClass">errored class</param>
+        /// <param name="sMethod">errored method</param>
+        /// <param name="sMessage">error message</param>
+        private void HandleError(string sClass, string sMethod, string sMessage)
+        {
+            try
+            {
+                System.Windows.MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
+            }
+            catch (System.Exception ex)
+            {
+                System.IO.File.AppendAllText(@"C:\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
         }
     }
 }
